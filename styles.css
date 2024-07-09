@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Hind Siliguri', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #fff;
+  color: #1d1d1d;
+}
+
+nav {
+  padding: 2em;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+
+nav a {
+  color: #1d1d1d;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 1rem;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+.hero {
+  padding: 7em 0;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+}
+
+.container {
+  background-color: #afafaf;
+}
+
+.intro {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3em 0;
+  text-align: center;
+}
+
+.intro-image {
+  width: 100%;
+  height: auto;
+}
