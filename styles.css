@@ -15,6 +15,7 @@
   background: var(--icon-toggle-bg);
   transform: scale(3);
   transition: background 200ms ease-in-out;
+  cursor: pointer;
 }
 
 .dark .sun {
@@ -77,23 +78,24 @@ nav a {
   height: 100vh;
 }
 
-.hero-left {
+.hero__left {
   width: 50%;
 }
 
-.hero-image-left {
+.hero__image-left {
   width: 100%;
 }
 
-.hero-right {
+.hero__right {
   width: 50%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-.hero-image-right {
-  width: 100%;
+.hero__image-right {
+  width: 40%;
   height: auto;
 }
 
@@ -109,9 +111,75 @@ nav a {
   display: flex;
 }
 
-.intro-image {
+.intro__header {
+  width: 10%;
+  height: auto;
+}
+
+.intro__image {
   width: 100%;
   height: auto;
+}
+
+.skills__header {
+  width: 10%;
+  height: auto;
+}
+
+.skills__marquee {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  height: 7vh;
+  user-select: none;
+  gap: 0.1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.marquee--hover-pause:hover .marquee__group {
+  animation-play-state: paused;
+}
+
+.marquee__group {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  /*justify-content: space-between;*/
+  gap: 1rem;
+  animation: scroll 30s linear infinite reverse;
+  white-space: nowrap;
+}
+
+.marquee__group ul {
+  display: flex;
+  list-style: none;
+}
+
+.marquee__group li {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.marquee__group h3 {
+  margin-left: 0.5rem;
+  font-size: 3rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.marquee__group img:hover {
+  transition: all 0.5s ease-in-out;
+  /*transform: skewY(-8deg);*/
+  transform: scale(1.1);
+  background-color: #c1532f;
+  object-fit: cover;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform;
+  margin-top: 1rem;
 }
 
 body.light {
@@ -130,4 +198,13 @@ body.dark {
   --header-color: #f0f0f0;
   --background: #121212;
   --fill: #f0f0f0;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 0.1rem));
+  }
 }
