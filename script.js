@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //   const slideBackgrounds = [
 //     { url: '/assets/images/slide1.jpg' },
-//     { url: 'https://cdn.wallpapersafari.com/3/53/0xgnyc.jpg' },
+//     { url: '/assets/images/slide2.jpg' },
 //     { url: 'https://mcdn.wallpapersafari.com/medium/28/35/fslPOF.jpg' },
 //     { url: 'https://mcdn.wallpapersafari.com/medium/18/88/gsAVlZ.jpg' },
 //   ];

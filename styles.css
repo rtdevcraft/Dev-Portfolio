@@ -18,7 +18,7 @@ body.dark-theme {
   --icon-toggle: #333;
   --header-bg: #333;
   --header-color: #f0f0f0;
-  --background: #121212;
+  --background: #333;
   --fill: #f0f0f0;
 }
 
@@ -272,6 +272,10 @@ nav a {
 
 .nav-links.active-menu {
   display: flex;
+  background-color: #e8e8e8;
+  border-radius: 5px;
+  padding: 1em;
+  margin: 1em;
 }
 
 .nav-links a {
@@ -351,7 +355,7 @@ nav a {
   display: flex;
   align-items: center;
   gap: 1rem;
-  /* animation: scroll 30s linear infinite reverse; */
+  animation: scroll 30s linear infinite reverse;
   white-space: nowrap;
 }
 
@@ -501,19 +505,28 @@ nav a {
   text-decoration: none;
 }
 
+.slide__links {
+  display: flex;
+  flex-direction: row;
+}
+
 .slide__link {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0.5em 0;
   text-transform: uppercase;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
 }
 
 .slide__link img {
   margin-right: 0.3em;
   width: 20px;
   height: 20px;
+}
+
+.slide__desc {
+  text-align: center;
 }
 
 .slide__content h3 {
