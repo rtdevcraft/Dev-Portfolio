@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const themeToggle = document.getElementById('switch-theme');
   const hamburgerIcon = document.getElementById('hamburger-button');
   const body = document.body;
+  const headerBg = document.getElementById('header');
   const navLinks = document.getElementById('nav-links');
   const githubImage = document.getElementById('github');
   const linkedinImage = document.getElementById('linkedin');
@@ -15,22 +16,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateImages() {
     if (body.classList.contains('dark-theme')) {
+      headerBg.style.backgroundImage = 'url("/assets/images/glitch-bg.jpg")';
       githubImage.src = '/assets/images/github-dark.png';
       linkedinImage.src = '/assets/images/linkedin-dark.png';
       emailImage.src = '/assets/images/email-dark.png';
       resumeImage.src = '/assets/images/resume-dark.png';
-      heroImageLeft.src = '/assets/images/hero-img-dark.png';
+      heroImageLeft.src = '/assets/images/spoton-1.jpg';
       heroImageRight.src = '/assets/images/frontend-dev-dark.png';
       introImage.src = '/assets/images/heylo-dark.png';
       toolboxImage.src = '/assets/images/toolbox-dark.png';
       workImage.src = '/assets/images/work-dark.png';
     } else {
+      headerBg.style.backgroundImage =
+        'url("/assets/images/glitch-bg-light.jpg")';
       githubImage.src = '/assets/images/github.png';
       linkedinImage.src = '/assets/images/linkedin.png';
       emailImage.src = '/assets/images/email.png';
       resumeImage.src = '/assets/images/resume.png';
-      heroImageLeft.src = '/assets/images/hero-img.png';
-      heroImageRight.src = '/assets/images/frontend-dev.png';
+      heroImageLeft.src = '/assets/images/spoton-light-color-outline.jpg';
+      heroImageRight.src = '/assets/images/fedev.jpg';
       introImage.src = '/assets/images/heylo.png';
       toolboxImage.src = '/assets/images/toolbox.png';
       workImage.src = '/assets/images/work.png';

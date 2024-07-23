@@ -18,17 +18,18 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body id="root">
-    <header>
+    <header id="header">
+      <div class="logo-container">
+        <a href="#">
+          <img
+            src="/assets/images/rtdevcraftlogo.svg"
+            alt="Rachel's logo"
+            class="logo"
+        /></a>
+      </div>
+
       <nav>
         <ul>
-          <li>
-            <a href="#">
-              <img
-                src="/assets/images/rtdevcraftlogo.svg"
-                alt="Rachel's logo"
-                class="logo"
-            /></a>
-          </li>
           <li class="hamburger">
             <button
               id="hamburger-button"
@@ -60,7 +61,6 @@
           <li id="nav-links" class="nav-links">
             <a href="#">ABOUT</a>
             <a href="#">WORK</a>
-
             <ul class="social-links">
               <li>
                 <a href="#"
@@ -127,16 +127,8 @@
           <img
             id="hero__image-left"
             class="hero__image-left"
-            src="/assets/images/hero-img.png"
+            src="/assets/images/spoton.jpg"
             alt="Spot On with lines and cheetah with crossed legs"
-          />
-        </div>
-        <div class="hero__right">
-          <img
-            id="hero__image-right"
-            src="/assets/images/frontend-dev.png"
-            alt="Frontend Dev"
-            class="hero__image-right"
           />
         </div>
       </section>
@@ -148,7 +140,10 @@
           class="intro__image"
         />
 
-        <p>I'm Rachel. I'm a creative frontend developer. Check out my work.</p>
+        <p>
+          I'm Rachel Tschanz. I'm a creative frontend developer. Check out my
+          work.
+        </p>
       </section>
       <section class="toolbox">
         <img
