@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const elements = {
     themeToggle: document.getElementById('switch-theme'),
     hamburgerButton: document.getElementById('hamburger-button'),
-    navMenu: document.getElementById('nav-menu'),
+    hamburgerIcon: document.querySelector('.hamburger-icon'),
     body: document.body,
     header: document.querySelector('header'),
     navLinks: document.getElementById('nav-links'),
@@ -89,67 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Menu toggle function
   function toggleMenu() {
-    console.log('toggleMenu function called');
-    const isExpanded = elements.navMenu.classList.toggle('active-menu');
+    elements.navLinks.classList.toggle('active-menu');
+    elements.hamburgerIcon.classList.toggle('active-icon');
+    const isExpanded = elements.navLinks.classList.contains('active-menu');
     elements.hamburgerButton.setAttribute('aria-expanded', isExpanded);
-    elements.hamburgerButton
-      .querySelector('.hamburger-icon')
-      .classList.toggle('active-icon');
-    console.log('Menu toggled, isExpanded:', isExpanded);
   }
-
-  const hamburgerButton = document.getElementById('hamburger-button');
-  console.log('Hamburger button element:', hamburgerButton);
-
-  if (hamburgerButton) {
-    console.log('Hamburger button found');
-
-    // Add click event listener
-    hamburgerButton.addEventListener('click', function (event) {
-      console.log('Hamburger button clicked', event);
-      alert('Hamburger button clicked');
-    });
-
-    // Add additional event listeners to check if any events are firing
-    hamburgerButton.addEventListener('mousedown', function (event) {
-      console.log('Mousedown on hamburger button', event);
-    });
-
-    hamburgerButton.addEventListener('mouseup', function (event) {
-      console.log('Mouseup on hamburger button', event);
-    });
-
-    // Log button properties
-    console.log('Button properties:', {
-      width: hamburgerButton.offsetWidth,
-      height: hamburgerButton.offsetHeight,
-      visible: hamburgerButton.offsetParent !== null,
-      disabled: hamburgerButton.disabled,
-    });
-  } else {
-    console.error('Hamburger button not found');
-  }
-
-  // Add a global click listener to see if clicks are being captured
-  document.addEventListener('click', function (event) {
-    console.log('Click detected on document', event.target);
-  });
-
-  // Event listeners
-  console.log('Hamburger button:', elements.hamburgerButton);
-  elements.hamburgerButton.addEventListener('click', (e) => {
-    console.log('Hamburger clicked');
-    toggleMenu();
-  });
-
-  // Close menu when clicking on a nav link
-  elements.navMenu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (elements.navMenu.classList.contains('active-menu')) {
-        toggleMenu();
-      }
-    });
-  });
 
   // Slider functionality
   const slideBackgrounds = [
