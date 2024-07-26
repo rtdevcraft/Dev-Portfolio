@@ -3,25 +3,31 @@ document.addEventListener('DOMContentLoaded', function () {
   const themeConfig = {
     light: {
       headerBg: '/assets/images/header-bg-light.jpg',
+      hero: {
+        small: '/assets/images/spot-light-sm.jpg',
+        large: '/assets/images/spot-light-lg.jpg',
+      },
       github: '/assets/images/github.png',
       linkedin: '/assets/images/linkedin.png',
       email: '/assets/images/email.png',
       resume: '/assets/images/resume.png',
-      hero: '/assets/images/spot-light-sm.jpg',
       intro: '/assets/images/heylo.jpg',
       toolbox: '/assets/images/toolbox.jpg',
       work: '/assets/images/work.jpg',
     },
     dark: {
       headerBg: '/assets/images/header-bg.jpg',
+      hero: {
+        small: '/assets/images/spot-dark-sm.jpg',
+        large: '/assets/images/spot-dark-lg.jpg',
+      },
       github: '/assets/images/github-dark.png',
       linkedin: '/assets/images/linkedin-dark.png',
       email: '/assets/images/email-dark.png',
       resume: '/assets/images/resume-dark.png',
-      hero: '/assets/images/spot-dark-sm.jpg',
-      intro: '/assets/images/heylo-dark.png',
-      toolbox: '/assets/images/toolbox-dark.png',
-      work: '/assets/images/work-dark.png',
+      intro: '/assets/images/heylo-dark.jpg',
+      toolbox: '/assets/images/toolbox-dark.jpg',
+      work: '/assets/images/work-dark.jpg',
     },
   };
 
@@ -33,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
     body: document.body,
     header: document.querySelector('header'),
     navLinks: document.getElementById('nav-links'),
+    heroImage: document.querySelector('.hero__image'),
     githubImage: document.querySelector('.social-links img[src*="github"]'),
     linkedinImage: document.querySelector('.social-links img[src*="linkedin"]'),
     emailImage: document.querySelector('.social-links img[src*="email"]'),
     resumeImage: document.querySelector('.social-links img[src*="resume"]'),
-    heroImage: document.querySelector('.hero__image'),
     introImage: document.querySelector('#about .header-image'),
     toolboxImage: document.querySelector('.toolbox .header-image'),
     workImage: document.querySelector('#work .header-image'),
@@ -46,25 +52,38 @@ document.addEventListener('DOMContentLoaded', function () {
     nextButton: document.querySelector('.nav-arrow.next'),
   };
 
-  // Theme switching functions
+  // Function to determine if the screen is large
+  function isLargeScreen() {
+    return window.matchMedia('(min-width: 1000px)').matches;
+  }
+
+  // Function to get the current theme
+  function getCurrentTheme() {
+    return elements.body.classList.contains('light-theme') ? 'light' : 'dark';
+  }
+
+  // Update images based on theme and screen size
   function updateImages(theme) {
+    const screenSize = isLargeScreen() ? 'large' : 'small';
+
     elements.header.style.backgroundImage = `url("${themeConfig[theme].headerBg}")`;
+    elements.heroImage.src = themeConfig[theme].hero[screenSize];
+
+    // Update other images
     elements.githubImage.src = themeConfig[theme].github;
     elements.linkedinImage.src = themeConfig[theme].linkedin;
     elements.emailImage.src = themeConfig[theme].email;
     elements.resumeImage.src = themeConfig[theme].resume;
-    elements.heroImage.src = themeConfig[theme].hero;
     elements.introImage.src = themeConfig[theme].intro;
     elements.toolboxImage.src = themeConfig[theme].toolbox;
     elements.workImage.src = themeConfig[theme].work;
   }
 
+  // Theme toggle function
   function toggleTheme() {
-    const newTheme = elements.body.classList.contains('light-theme')
-      ? 'dark'
-      : 'light';
-    elements.body.classList.toggle('light-theme');
-    elements.body.classList.toggle('dark-theme');
+    const newTheme = getCurrentTheme() === 'light' ? 'dark' : 'light';
+    elements.body.classList.remove('light-theme', 'dark-theme');
+    elements.body.classList.add(`${newTheme}-theme`);
     updateImages(newTheme);
     localStorage.setItem('theme', newTheme);
     elements.themeToggle.setAttribute(
@@ -73,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   }
 
+  // Initialize theme
   function initTheme() {
     const savedTheme =
       localStorage.getItem('theme') ||
@@ -87,15 +107,6 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   }
 
-  // Menu toggle function
-  function toggleMenu() {
-    elements.navLinks.classList.toggle('active-menu');
-    elements.hamburgerIcon.classList.toggle('active-icon');
-    const isExpanded = elements.navLinks.classList.contains('active-menu');
-    elements.hamburgerButton.setAttribute('aria-expanded', isExpanded);
-  }
-
-  // Slider functionality
   const slideBackgrounds = [
     { url: '/assets/images/slide1.jpg' },
     { url: '/assets/images/slide2.jpg' },
@@ -113,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         slide.classList.add('active');
         slide.classList.remove('nonActive');
         slide.style.backgroundImage = `url('${slideBackgrounds[i].url}')`;
-        if (content) content.style.display = 'block';
+        if (content) content.style.display = 'flex';
         slide.setAttribute('aria-hidden', 'false');
         slide.setAttribute('tabindex', '0');
       } else {
@@ -142,11 +153,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function startInterval() {
-    clearInterval(intervalId);
+    stopInterval(); // Clear any existing interval
     intervalId = setInterval(nextSlide, 4000);
   }
 
-  // Keyboard navigation
+  function stopInterval() {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  }
+
+  // Keyboard navigation for slider
   function handleKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft') {
       prevSlide();
@@ -155,6 +172,14 @@ document.addEventListener('DOMContentLoaded', function () {
       nextSlide();
       startInterval();
     }
+  }
+
+  // Menu toggle function
+  function toggleMenu() {
+    elements.navLinks.classList.toggle('active-menu');
+    elements.hamburgerIcon.classList.toggle('active-icon');
+    const isExpanded = elements.navLinks.classList.contains('active-menu');
+    elements.hamburgerButton.setAttribute('aria-expanded', isExpanded);
   }
 
   // Event listeners
@@ -177,9 +202,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Add focus event listener for keyboard navigation
-    slide.addEventListener('focus', () => {
-      clearInterval(intervalId);
-    });
+    slide.addEventListener('focus', stopInterval);
+    slide.addEventListener('blur', startInterval);
   });
 
   elements.nextButton.addEventListener('click', () => {
@@ -196,6 +220,11 @@ document.addEventListener('DOMContentLoaded', function () {
   document
     .querySelector('.slider-container')
     .addEventListener('keydown', handleKeyboardNavigation);
+
+  // Window resize event listener
+  window.addEventListener('resize', () => {
+    updateImages(getCurrentTheme());
+  });
 
   // Initialize
   initTheme();
