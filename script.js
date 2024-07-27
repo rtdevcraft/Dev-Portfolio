@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
       intro: '/assets/images/heylo.jpg',
       toolbox: '/assets/images/toolbox.jpg',
       work: '/assets/images/work.jpg',
+      logo8: '/assets/images/logo8.png',
+      logo17: '/assets/images/logo17.png',
     },
     dark: {
       headerBg: '/assets/images/header-bg.jpg',
@@ -28,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
       intro: '/assets/images/heylo-dark.jpg',
       toolbox: '/assets/images/toolbox-dark.jpg',
       work: '/assets/images/work-dark.jpg',
+      logo8: '/assets/images/logo22.png',
+      logo17: '/assets/images/logo18.png',
     },
   };
 
@@ -50,6 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
     slides: document.querySelectorAll('.slide'),
     prevButton: document.querySelector('.nav-arrow.prev'),
     nextButton: document.querySelector('.nav-arrow.next'),
+    logo8Image: document.querySelector('.marquee__group img[src*="logo8.png"]'),
+    logo17Image: document.querySelector(
+      '.marquee__group img[src*="logo17.png"]'
+    ),
   };
 
   // Function to determine if the screen is large
@@ -77,6 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
     elements.introImage.src = themeConfig[theme].intro;
     elements.toolboxImage.src = themeConfig[theme].toolbox;
     elements.workImage.src = themeConfig[theme].work;
+    elements.logo8Image.src = themeConfig[theme].logo8;
+    elements.logo17Image.src = themeConfig[theme].logo17;
   }
 
   // Theme toggle function
