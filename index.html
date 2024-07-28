@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#b91d47" />
+    <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
       content="Rachel Tschanz - Creative Frontend Developer Portfolio"
@@ -63,9 +70,11 @@
           </li>
           <li>
             <ul id="nav-links" class="nav-links">
-              <li><a class="glitch" href="#home" data-text="Home">HOME</a></li>
               <li>
-                <a class="glitch" href="#about" data-text="About">ABOUT</a>
+                <a class="glitch" href="#home" data-content="HOME">HOME</a>
+              </li>
+              <li>
+                <a class="glitch" href="#about" data-content="ABOUT">ABOUT</a>
               </li>
               <ul class="social-links">
                 <li>
@@ -402,22 +411,30 @@
                       />
                     </div>
                     <div class="slide__links">
-                      <a
-                        href="#"
-                        target="_blank"
-                        class="slide__link"
-                        aria-label="View live project"
-                      >
-                        <img src="/assets/images/link-icon.jpg" alt="" />
-                      </a>
-                      <a
-                        href="https://github.com/hiiamabat/Audiophile"
-                        target="_blank"
-                        class="slide__link"
-                        aria-label="View project on GitHub"
-                      >
-                        <img src="/assets/images/github.png" alt="" />
-                      </a>
+                      <div class="slide__link">
+                        <a
+                          href="#"
+                          target="_blank"
+                          aria-label="View live project"
+                        >
+                          <img
+                            src="/assets/images/link-icon.jpg"
+                            alt="Icon of a cloud and arrow"
+                          />
+                        </a>
+                      </div>
+                      <div class="slide__link">
+                        <a
+                          href="https://github.com/hiiamabat/Audiophile"
+                          target="_blank"
+                          aria-label="View project on GitHub"
+                        >
+                          <img
+                            src="/assets/images/github.png"
+                            alt="Github logo"
+                          />
+                        </a>
+                      </div>
                     </div>
 
                     <div class="slide__desc">
@@ -487,22 +504,24 @@
                       />
                     </div>
                     <div class="slide__links">
-                      <a
-                        href="https://github.com/hiiamabat/Rock-Paper-Scissors-Lizard-Spock"
-                        target="_blank"
-                        class="slide__link"
-                        aria-label="View live project"
-                      >
-                        <img src="/assets/images/link-icon.jpg" alt="" />
-                      </a>
-                      <a
-                        href="https://github.com/hiiamabat/Rock-Paper-Scissors-Lizard-Spock"
-                        target="_blank"
-                        class="slide__link"
-                        aria-label="View project on GitHub"
-                      >
-                        <img src="/assets/images/github.png" alt="" />
-                      </a>
+                      <div class="slide__link">
+                        <a
+                          href="https://github.com/hiiamabat/Rock-Paper-Scissors-Lizard-Spock"
+                          target="_blank"
+                          aria-label="View live project"
+                        >
+                          <img src="/assets/images/link-icon.jpg" alt="" />
+                        </a>
+                      </div>
+                      <div class="slide__link">
+                        <a
+                          href="https://github.com/hiiamabat/Rock-Paper-Scissors-Lizard-Spock"
+                          target="_blank"
+                          aria-label="View project on GitHub"
+                        >
+                          <img src="/assets/images/github.png" alt="" />
+                        </a>
+                      </div>
                     </div>
                     <div class="slide__desc">
                       <h3>Responsive Rock Paper Scissors Game</h3>
@@ -536,22 +555,24 @@
                       />
                     </div>
                     <div class="slide__links">
-                      <a
-                        href="https://raedesign.org/"
-                        target="_blank"
-                        class="slide__link"
-                        aria-label="View live project"
-                      >
-                        <img src="/assets/images/link-icon.jpg" alt="" />
-                      </a>
-                      <a
-                        href="https://github.com/hiiamabat/portfolio-24"
-                        target="_blank"
-                        class="slide__link"
-                        aria-label="View project on GitHub"
-                      >
-                        <img src="/assets/images/github.png" alt="" />
-                      </a>
+                      <div class="slide__link">
+                        <a
+                          href="https://raedesign.org/"
+                          target="_blank"
+                          aria-label="View live project"
+                        >
+                          <img src="/assets/images/link-icon.jpg" alt="" />
+                        </a>
+                      </div>
+                      <div class="slide__link">
+                        <a
+                          href="https://github.com/hiiamabat/portfolio-24"
+                          target="_blank"
+                          aria-label="View project on GitHub"
+                        >
+                          <img src="/assets/images/github.png" alt="" />
+                        </a>
+                      </div>
                     </div>
                     <div class="slide__desc">
                       <h3>Responsive Design Portfolio Website/SPA</h3>
@@ -663,11 +684,10 @@
           </section>
         </div>
       </div>
+      <footer>
+        <p>&copy; 2024 Rachel Tschanz. All rights reserved.</p>
+      </footer>
     </main>
-
-    <footer>
-      <p>&copy; 2024 Rachel Tschanz. All rights reserved.</p>
-    </footer>
 
     <script type="module" src="script.js"></script>
   </body>

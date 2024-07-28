@@ -117,6 +117,8 @@ document.addEventListener('DOMContentLoaded', function () {
     );
   }
 
+  // Slider function
+
   const slideBackgrounds = [
     { url: '/assets/images/slide1.jpg' },
     { url: '/assets/images/slide2.jpg' },
