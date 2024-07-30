@@ -14,8 +14,10 @@ document.addEventListener('DOMContentLoaded', function () {
       intro: '/assets/images/heylo.jpg',
       toolbox: '/assets/images/toolbox.jpg',
       work: '/assets/images/work.jpg',
-      logo8: '/assets/images/logo8.png',
-      logo17: '/assets/images/logo17.png',
+      emailMe: '/assets/images/email-me.jpg',
+      copyEmailIcon: '/assets/images/copy-email.png',
+      reactRouterLogoImage: '/assets/images/ReactRouterlogo.png',
+      githubLogoImage: '/assets/images/Githublogo.png',
     },
     dark: {
       headerBg: '/assets/images/header-bg.jpg',
@@ -30,8 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
       intro: '/assets/images/heylo-dark.jpg',
       toolbox: '/assets/images/toolbox-dark.jpg',
       work: '/assets/images/work-dark.jpg',
-      logo8: '/assets/images/logo22.png',
-      logo17: '/assets/images/logo18.png',
+      emailMe: '/assets/images/email-me-dark.jpg',
+      copyEmailIcon: '/assets/images/copy-email-dark.png',
+      reactRouterLogoImage: '/assets/images/ReactRouterlogo-w.png',
+      githubLogoImage: '/assets/images/Githublogo-w.png',
     },
   };
 
@@ -46,17 +50,21 @@ document.addEventListener('DOMContentLoaded', function () {
     heroImage: document.querySelector('.hero__image'),
     githubImage: document.querySelector('.social-links img[src*="github"]'),
     linkedinImage: document.querySelector('.social-links img[src*="linkedin"]'),
-    emailImage: document.querySelector('.social-links img[src*="email"]'),
+    emailImage: document.querySelector('a[href^="mailto:"] img'),
     resumeImage: document.querySelector('.social-links img[src*="resume"]'),
     introImage: document.querySelector('#about .header-image'),
-    toolboxImage: document.querySelector('.toolbox .header-image'),
+    toolboxImage: document.querySelector('#toolbox .header-image'),
     workImage: document.querySelector('#work .header-image'),
+    emailMeImage: document.querySelector('#email-me .header-image'),
+    copyEmailIcon: document.querySelector('#email-me img[src*="copy-email"]'),
     slides: document.querySelectorAll('.slide'),
     prevButton: document.querySelector('.nav-arrow.prev'),
     nextButton: document.querySelector('.nav-arrow.next'),
-    logo8Image: document.querySelector('.marquee__group img[src*="logo8.png"]'),
-    logo17Image: document.querySelector(
-      '.marquee__group img[src*="logo17.png"]'
+    reactRouterLogoImage: document.querySelector(
+      '.marquee__group img[src*="reactrouterlogo"]'
+    ),
+    githubLogoImage: document.querySelector(
+      '.marquee__group img[src*="githublogo"]'
     ),
   };
 
@@ -72,21 +80,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Update images based on theme and screen size
   function updateImages(theme) {
-    const screenSize = isLargeScreen() ? 'large' : 'small';
+    if (elements.header) {
+      elements.header.style.backgroundImage = `url("${themeConfig[theme].headerBg}")`;
+    }
+    if (elements.heroImage) {
+      elements.heroImage.src =
+        themeConfig[theme].hero[isLargeScreen() ? 'large' : 'small'];
+    }
 
-    elements.header.style.backgroundImage = `url("${themeConfig[theme].headerBg}")`;
-    elements.heroImage.src = themeConfig[theme].hero[screenSize];
-
-    // Update other images
-    elements.githubImage.src = themeConfig[theme].github;
-    elements.linkedinImage.src = themeConfig[theme].linkedin;
-    elements.emailImage.src = themeConfig[theme].email;
-    elements.resumeImage.src = themeConfig[theme].resume;
-    elements.introImage.src = themeConfig[theme].intro;
-    elements.toolboxImage.src = themeConfig[theme].toolbox;
-    elements.workImage.src = themeConfig[theme].work;
-    elements.logo8Image.src = themeConfig[theme].logo8;
-    elements.logo17Image.src = themeConfig[theme].logo17;
+    // Update other images if they exist
+    if (elements.githubImage)
+      elements.githubImage.src = themeConfig[theme].github;
+    if (elements.linkedinImage)
+      elements.linkedinImage.src = themeConfig[theme].linkedin;
+    if (elements.emailImage) elements.emailImage.src = themeConfig[theme].email;
+    if (elements.resumeImage)
+      elements.resumeImage.src = themeConfig[theme].resume;
+    if (elements.introImage) elements.introImage.src = themeConfig[theme].intro;
+    if (elements.toolboxImage)
+      elements.toolboxImage.src = themeConfig[theme].toolbox;
+    if (elements.workImage) elements.workImage.src = themeConfig[theme].work;
+    if (elements.emailMeImage)
+      elements.emailMeImage.src = themeConfig[theme].emailMe;
+    if (elements.copyEmailIcon)
+      elements.copyEmailIcon.src = themeConfig[theme].copyEmailIcon;
+    if (elements.reactRouterLogoImage)
+      elements.reactRouterLogoImage.src =
+        themeConfig[theme].reactRouterLogoImage;
+    if (elements.githubLogoImage)
+      elements.githubLogoImage.src = themeConfig[theme].githubLogoImage;
   }
 
   // Theme toggle function
@@ -96,10 +118,12 @@ document.addEventListener('DOMContentLoaded', function () {
     elements.body.classList.add(`${newTheme}-theme`);
     updateImages(newTheme);
     localStorage.setItem('theme', newTheme);
-    elements.themeToggle.setAttribute(
-      'aria-label',
-      `Switch to ${newTheme === 'light' ? 'dark' : 'light'} theme`
-    );
+    document.querySelectorAll('.switch-theme').forEach((button) => {
+      button.setAttribute(
+        'aria-label',
+        `Switch to ${newTheme === 'light' ? 'dark' : 'light'} theme`
+      );
+    });
   }
 
   // Initialize theme
@@ -111,14 +135,15 @@ document.addEventListener('DOMContentLoaded', function () {
         : 'light');
     elements.body.classList.add(`${savedTheme}-theme`);
     updateImages(savedTheme);
-    elements.themeToggle.setAttribute(
-      'aria-label',
-      `Switch to ${savedTheme === 'light' ? 'dark' : 'light'} theme`
-    );
+    document.querySelectorAll('.switch-theme').forEach((button) => {
+      button.setAttribute(
+        'aria-label',
+        `Switch to ${savedTheme === 'light' ? 'dark' : 'light'} theme`
+      );
+    });
   }
 
-  // Slider function
-
+  // Slider functions
   const slideBackgrounds = [
     { url: '/assets/images/slide1.jpg' },
     { url: '/assets/images/slide2.jpg' },
@@ -127,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
   ];
 
   let currentIndex = 0;
-  let intervalId;
 
   function showSlide(index) {
     elements.slides.forEach((slide, i) => {
@@ -149,8 +173,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Update ARIA live region
-    document.getElementById('slide-announcement').textContent =
-      `Showing slide ${index + 1} of ${elements.slides.length}`;
+    const slideAnnouncement = document.getElementById('slide-announcement');
+    if (slideAnnouncement) {
+      slideAnnouncement.textContent = `Showing slide ${index + 1} of ${elements.slides.length}`;
+    }
   }
 
   function nextSlide() {
@@ -164,25 +190,12 @@ document.addEventListener('DOMContentLoaded', function () {
     showSlide(currentIndex);
   }
 
-  function startInterval() {
-    stopInterval(); // Clear any existing interval
-    intervalId = setInterval(nextSlide, 4000);
-  }
-
-  function stopInterval() {
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-  }
-
   // Keyboard navigation for slider
   function handleKeyboardNavigation(event) {
     if (event.key === 'ArrowLeft') {
       prevSlide();
-      startInterval();
     } else if (event.key === 'ArrowRight') {
       nextSlide();
-      startInterval();
     }
   }
 
@@ -194,62 +207,172 @@ document.addEventListener('DOMContentLoaded', function () {
     elements.hamburgerButton.setAttribute('aria-expanded', isExpanded);
   }
 
-  // Event listeners
-  elements.themeToggle.addEventListener('click', toggleTheme);
-  elements.hamburgerButton.addEventListener('click', toggleMenu);
-
-  elements.navLinks.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (elements.navLinks.classList.contains('active-menu')) {
-        toggleMenu();
-      }
-    });
-  });
-
-  elements.slides.forEach((slide, index) => {
-    slide.addEventListener('click', () => {
-      currentIndex = index;
+  // Initialize slider
+  function initSlider() {
+    if (elements.slides.length > 0) {
+      elements.slides.forEach((slide, index) => {
+        if (slideBackgrounds[index]) {
+          slide.style.backgroundImage = `url('${slideBackgrounds[index].url}')`;
+        }
+      });
       showSlide(currentIndex);
-      startInterval();
+    } else {
+      console.warn('No slides found');
+    }
+
+    if (elements.nextButton) {
+      elements.nextButton.addEventListener('click', nextSlide);
+    }
+
+    if (elements.prevButton) {
+      elements.prevButton.addEventListener('click', prevSlide);
+    }
+
+    // Add keyboard event listener to the slider container
+    const sliderContainer = document.querySelector('.slider-container');
+    if (sliderContainer) {
+      sliderContainer.addEventListener('keydown', handleKeyboardNavigation);
+    }
+  }
+
+  // Initialize everything
+  function init() {
+    initTheme();
+    if (document.querySelector('.slider-container')) {
+      initSlider();
+    }
+
+    // Event listeners
+    document.querySelectorAll('.switch-theme').forEach((button) => {
+      button.addEventListener('click', toggleTheme);
     });
 
-    // Add focus event listener for keyboard navigation
-    slide.addEventListener('focus', stopInterval);
-    slide.addEventListener('blur', startInterval);
-  });
+    if (elements.themeToggle) {
+      elements.themeToggle.addEventListener('click', toggleTheme);
+    }
+    if (elements.hamburgerButton) {
+      elements.hamburgerButton.addEventListener('click', toggleMenu);
+    }
 
-  elements.nextButton.addEventListener('click', () => {
-    nextSlide();
-    startInterval();
-  });
+    if (elements.navLinks) {
+      elements.navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          if (elements.navLinks.classList.contains('active-menu')) {
+            toggleMenu();
+          }
+        });
+      });
+    }
 
-  elements.prevButton.addEventListener('click', () => {
-    prevSlide();
-    startInterval();
-  });
+    // Create ARIA live region for slide announcements
+    const liveRegion = document.createElement('div');
+    liveRegion.id = 'slide-announcement';
+    liveRegion.className = 'sr-only';
+    liveRegion.setAttribute('aria-live', 'polite');
+    document.body.appendChild(liveRegion);
 
-  // Add keyboard event listener to the slider container
-  document
-    .querySelector('.slider-container')
-    .addEventListener('keydown', handleKeyboardNavigation);
+    // Window resize event listener
+    window.addEventListener('resize', () => {
+      updateImages(getCurrentTheme());
+    });
+  }
 
-  // Window resize event listener
-  window.addEventListener('resize', () => {
-    updateImages(getCurrentTheme());
-  });
+  // Run initialization
+  init();
+});
 
-  // Initialize
-  initTheme();
-  elements.slides.forEach((slide, index) => {
-    slide.style.backgroundImage = `url('${slideBackgrounds[index].url}')`;
-  });
-  showSlide(currentIndex);
-  startInterval();
+// Toast Notification
 
-  // Create ARIA live region for slide announcements
-  const liveRegion = document.createElement('div');
-  liveRegion.id = 'slide-announcement';
-  liveRegion.className = 'sr-only';
-  liveRegion.setAttribute('aria-live', 'polite');
-  document.body.appendChild(liveRegion);
+class ToastNotification {
+  constructor() {
+    this.container = document.createElement('div');
+    this.container.id = 'toast-container';
+    document.body.appendChild(this.container);
+
+    // Apply styles to the container
+    Object.assign(this.container.style, {
+      position: 'fixed',
+      bottom: '20px',
+      right: '20px',
+      zIndex: '1000',
+    });
+  }
+
+  show(message, duration = 3000) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+
+    // Apply styles to the toast
+    Object.assign(toast.style, {
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      color: 'white',
+      padding: '10px 20px',
+      borderRadius: '4px',
+      marginTop: '10px',
+      opacity: '0',
+      transition: 'opacity 0.3s ease-in-out',
+    });
+
+    this.container.appendChild(toast);
+
+    // Trigger reflow to enable transition
+    toast.offsetHeight;
+
+    // Make the toast visible
+    toast.style.opacity = '1';
+
+    // Remove the toast after the specified duration
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.addEventListener('transitionend', () => {
+        this.container.removeChild(toast);
+      });
+    }, duration);
+  }
+}
+
+// Create a global instance of ToastNotification
+window.toastNotification = new ToastNotification();
+
+document.addEventListener('DOMContentLoaded', function () {
+  const copyEmailIcon = document.getElementById('copy-email-icon');
+  const emailLink = document.querySelector('.email-me__text a[data-email]');
+
+  if (copyEmailIcon && emailLink) {
+    copyEmailIcon.addEventListener('click', function (e) {
+      e.preventDefault();
+      const email = emailLink.getAttribute('data-email');
+
+      navigator.clipboard
+        .writeText(email)
+        .then(() => {
+          // Show toast notification
+          window.toastNotification.show('Email copied to clipboard!');
+
+          // Optional: Provide visual feedback on the icon
+          copyEmailIcon.classList.add('copied');
+          setTimeout(() => {
+            copyEmailIcon.classList.remove('copied');
+          }, 2000);
+
+          // Announce to screen readers
+          const announcement = document.createElement('div');
+          announcement.textContent = 'Email address copied to clipboard';
+          announcement.setAttribute('aria-live', 'polite');
+          announcement.style.position = 'absolute';
+          announcement.style.left = '-9999px';
+          document.body.appendChild(announcement);
+          setTimeout(() => {
+            document.body.removeChild(announcement);
+          }, 3000);
+        })
+        .catch((err) => {
+          console.error('Failed to copy email: ', err);
+          window.toastNotification.show(
+            'Failed to copy email. Please try again.'
+          );
+        });
+    });
+  }
 });

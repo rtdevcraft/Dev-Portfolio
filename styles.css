@@ -23,7 +23,8 @@ body.dark-theme {
 
 /* Accessibility Classes */
 
-.visually-hidden {
+.visually-hidden,
+.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -109,7 +110,7 @@ header {
   flex-direction: column;
   width: 100%;
   text-align: center;
-  gap: 1em;
+  gap: 2em;
 }
 
 .nav-links.active-menu {
@@ -122,13 +123,13 @@ header {
 
 .nav-links a {
   color: var(--fill);
-  padding: 10px 0;
   width: 100%;
 }
 
 .nav-links .social-links {
+  margin-top: 3em;
   flex-direction: column;
-  gap: 2em;
+  gap: 4em;
 }
 
 nav ul {
@@ -158,8 +159,84 @@ nav a {
   width: 25px;
 }
 
+.circle-glitch,
+.square-glitch {
+  position: relative;
+}
+
+.circle-glitch:hover,
+.square-glitch:hover {
+  animation: glitch-skew2 1s infinite linear alternate-reverse;
+}
+
+.circle-glitch a,
+.square-glitch a {
+  position: relative;
+  z-index: 1;
+}
+
+.circle-glitch img,
+.square-glitch img {
+  display: block;
+  width: 25px;
+  height: 25px;
+}
+
+.circle-glitch:before,
+.circle-glitch:after,
+.square-glitch:before,
+.square-glitch:after {
+  content: '';
+  position: absolute;
+  top: 0.1em;
+  left: 0.1em;
+  right: 0.1em;
+  bottom: 0.1em;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+.circle-glitch:before,
+.circle-glitch:after {
+  border-radius: 50%;
+}
+
+.square-glitch:before,
+.square-glitch:after {
+  border-radius: 5px;
+}
+
+.circle-glitch:before,
+.square-glitch:before {
+  background-color: rgba(5, 252, 217, 0.8);
+}
+
+.circle-glitch:after,
+.square-glitch:after {
+  background-color: rgba(253, 32, 84, 0.8);
+}
+
+.circle-glitch:hover:before,
+.circle-glitch:hover:after,
+.square-glitch:hover:before,
+.square-glitch:hover:after {
+  opacity: 1;
+}
+
+.circle-glitch:hover:before,
+.square-glitch:hover:before {
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.circle-glitch:hover:after,
+.square-glitch:hover:after {
+  animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
 /* Theme Switch Styles */
-#switch-theme {
+.switch-theme {
   cursor: pointer;
   background: 0;
   border: 0;
@@ -170,11 +247,11 @@ nav a {
   isolation: isolate;
 }
 
-#switch-theme svg {
+.switch-theme svg {
   fill: var(--icon-toggle-bg);
 }
 
-#switch-theme::before {
+.switch-theme::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -193,11 +270,11 @@ nav a {
   animation: pulseToDark 650ms ease-out;
 }
 
-#switch-theme::after {
+.switch-theme::after {
   content: attr(aria-label);
   position: absolute;
-  color: var(--fill);
-  background: var(--background);
+  color: var(--icon-toggle);
+  background: var(--icon-toggle-bg);
   border-radius: 0.125em;
   width: max-content;
   text-transform: uppercase;
@@ -215,15 +292,15 @@ nav a {
   max-width: 5em;
 }
 
-#switch-theme:hover,
-#switch-theme:focus {
+.switch-theme:hover,
+.switch-theme:focus {
   outline: 0;
   opacity: 1;
   background: hsl(0 0% 50% / 0.15);
 }
 
-#switch-theme:hover::after,
-#switch-theme:focus-visible::after {
+.switch-theme:hover::after,
+.switch-theme:focus-visible::after {
   opacity: 0.7;
   transform: scale(1);
   transition:
@@ -269,40 +346,6 @@ nav a {
   opacity: 0;
 }
 
-@keyframes pulseToLight {
-  0% {
-    transform: scale(0);
-    opacity: 0.5;
-  }
-  10% {
-    transform: scale(1);
-  }
-  75% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-@keyframes pulseToDark {
-  0% {
-    transform: scale(0);
-    opacity: 0.5;
-  }
-  10% {
-    transform: scale(1);
-  }
-  75% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
 .light-theme .toggle-sun {
   transform: rotate(0.5turn);
 }
@@ -327,13 +370,6 @@ nav a {
 }
 
 /* Intro Section Styles */
-.intro {
-  margin: 0 auto;
-  text-align: left;
-  padding: 0 1em 2em 1em;
-  display: flex;
-  flex-direction: column;
-}
 
 .header-image {
   width: 50%;
@@ -343,17 +379,7 @@ nav a {
 
 /* Toolbox Section Styles */
 .toolbox {
-  margin: 0 auto;
-  text-align: left;
-  padding: 0 1em 2em 1em;
-  display: flex;
-  flex-direction: column;
-}
-
-.toolbox__image {
-  width: 50%;
-  height: auto;
-  margin-bottom: 1em;
+  margin-top: 2em;
 }
 
 .toolbox__marquee {
@@ -404,28 +430,10 @@ nav a {
   letter-spacing: 2px;
 }
 
-@keyframes scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(-100% - 0.1rem));
-  }
-}
-
 /* Work Section Styles */
 .work {
-  margin: 0 auto;
-  text-align: left;
-  padding: 0 1em 2em 1em;
-  display: flex;
-  flex-direction: column;
-}
-
-.work__image {
-  width: 30%;
-  height: auto;
-  margin-bottom: 1em;
+  margin-top: 2em;
+  position: relative;
 }
 
 /* Slider Styles */
@@ -477,9 +485,20 @@ nav a {
   align-items: flex-end;
   background-size: cover;
   background-position: center;
-  box-shadow: 3px 3px 5px #333;
-  opacity: 0.5;
   position: relative;
+}
+
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 0;
+  border-radius: 5px;
+  transition: opacity 1s ease;
 }
 
 .active {
@@ -492,7 +511,6 @@ nav a {
 }
 .nonActive {
   flex-grow: 0;
-  background-color: rgba(0, 0, 0, 0.7);
   transition-duration: 1s;
 }
 
@@ -517,7 +535,6 @@ nav a {
   width: 100%;
   height: 100%;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
   border-radius: 5px;
 }
 
@@ -535,6 +552,10 @@ nav a {
   border-radius: 5px;
 }
 
+.slide__link:hover {
+  animation: glitch-skew2 1s infinite linear alternate-reverse;
+}
+
 .slide__link a {
   display: flex;
   justify-content: center;
@@ -547,56 +568,42 @@ nav a {
   border-radius: 5px;
 }
 
-.slide__link::before,
-.slide__link::after {
+.slide__link:before,
+.slide__link:after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0.1em;
+  left: 0.1em;
+  right: 0.1em;
+  bottom: 0.1em;
+  opacity: 0;
   z-index: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 5px;
-  transition: transform 0.3s ease;
 }
 
-.slide__link::before {
-  background-color: #05fcd9;
+.slide__link:before {
+  background-color: rgba(5, 252, 217, 0.8);
 }
 
-.slide__link::after {
-  background-color: #fd2054;
+.slide__link:after {
+  background-color: rgba(253, 32, 84, 0.8);
 }
 
-.slide__link:hover::before {
-  animation: glitchy 0.3s ease 0.3s infinite;
+.slide__link:hover:before {
+  opacity: 1;
+  animation: glitch-anim 1s infinite linear alternate-reverse;
 }
 
-.slide__link:hover::after {
-  animation: glitchy 0.3s ease infinite reverse;
+.slide__link:hover:after {
+  opacity: 1;
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
 }
 
 .slide__link img {
   width: 30px;
   height: 30px;
-}
-
-@keyframes glitchy {
-  0% {
-    transform: translate(-2px, 2px);
-  }
-  25% {
-    transform: translate(-2px, -2px);
-  }
-  50% {
-    transform: translate(2px, 2px);
-  }
-  75% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(-2px, 2px);
-  }
 }
 
 .slide__desc {
@@ -642,6 +649,112 @@ nav a {
   display: flex;
 }
 
+/* Email me section styles */
+
+.email-me {
+  margin-top: 2em;
+}
+
+.email-me__text {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.email-me-link {
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  list-style: none;
+  color: inherit;
+}
+
+.email-me-link:hover {
+  animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+
+.email-me-link:before,
+.email-me-link:after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.email-me-link:before {
+  left: 2px;
+  text-shadow: -2px 0 rgba(5, 252, 217, 0.8);
+}
+
+.email-me-link:after {
+  left: -2px;
+  text-shadow:
+    -2px 0 rgba(253, 32, 84, 0.8),
+    2px 2px rgba(5, 252, 217, 0.8);
+}
+
+.email-me-link:hover:before {
+  opacity: 1;
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.email-me-link:hover:after {
+  opacity: 1;
+  animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+#copy-email-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  margin-left: 0.5em;
+  width: 15px;
+  height: 15px;
+}
+
+#copy-email-icon:hover {
+  transform: scale(1.1);
+}
+
+#copy-email-icon.copied {
+  animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#toast-container {
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.toast {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* Footer Styles */
 footer {
   padding: 2em;
@@ -650,6 +763,287 @@ footer {
 }
 
 /* Animations */
+
+@keyframes pulseToLight {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  10% {
+    transform: scale(1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseToDark {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  10% {
+    transform: scale(1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(12px, 9999px, 52px, 0);
+    transform: skew(0.32deg);
+  }
+  5% {
+    clip: rect(65px, 9999px, 98px, 0);
+    transform: skew(0.89deg);
+  }
+  10% {
+    clip: rect(37px, 9999px, 23px, 0);
+    transform: skew(0.41deg);
+  }
+  15% {
+    clip: rect(86px, 9999px, 71px, 0);
+    transform: skew(0.05deg);
+  }
+  20% {
+    clip: rect(15px, 9999px, 46px, 0);
+    transform: skew(0.63deg);
+  }
+  25% {
+    clip: rect(79px, 9999px, 32px, 0);
+    transform: skew(0.17deg);
+  }
+  30% {
+    clip: rect(53px, 9999px, 94px, 0);
+    transform: skew(0.75deg);
+  }
+  35% {
+    clip: rect(28px, 9999px, 59px, 0);
+    transform: skew(0.49deg);
+  }
+  40% {
+    clip: rect(41px, 9999px, 87px, 0);
+    transform: skew(0.96deg);
+  }
+  45% {
+    clip: rect(9px, 9999px, 76px, 0);
+    transform: skew(0.28deg);
+  }
+  50% {
+    clip: rect(63px, 9999px, 18px, 0);
+    transform: skew(0.81deg);
+  }
+  55% {
+    clip: rect(92px, 9999px, 35px, 0);
+    transform: skew(0.12deg);
+  }
+  60% {
+    clip: rect(24px, 9999px, 68px, 0);
+    transform: skew(0.57deg);
+  }
+  65% {
+    clip: rect(50px, 9999px, 83px, 0);
+    transform: skew(0.7deg);
+  }
+  70% {
+    clip: rect(7px, 9999px, 95px, 0);
+    transform: skew(0.38deg);
+  }
+  75% {
+    clip: rect(81px, 9999px, 39px, 0);
+    transform: skew(0.93deg);
+  }
+  80% {
+    clip: rect(33px, 9999px, 72px, 0);
+    transform: skew(0.21deg);
+  }
+  85% {
+    clip: rect(56px, 9999px, 10px, 0);
+    transform: skew(0.84deg);
+  }
+  90% {
+    clip: rect(20px, 9999px, 61px, 0);
+    transform: skew(0.02deg);
+  }
+  95% {
+    clip: rect(89px, 9999px, 44px, 0);
+    transform: skew(0.67deg);
+  }
+  100% {
+    clip: rect(3px, 9999px, 97px, 0);
+    transform: skew(0.45deg);
+  }
+}
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(45px, 9999px, 78px, 0);
+    transform: skew(0.59deg);
+  }
+  5% {
+    clip: rect(29px, 9999px, 91px, 0);
+    transform: skew(0.14deg);
+  }
+  10% {
+    clip: rect(84px, 9999px, 16px, 0);
+    transform: skew(0.73deg);
+  }
+  15% {
+    clip: rect(62px, 9999px, 39px, 0);
+    transform: skew(0.36deg);
+  }
+  20% {
+    clip: rect(5px, 9999px, 82px, 0);
+    transform: skew(0.9deg);
+  }
+  25% {
+    clip: rect(71px, 9999px, 27px, 0);
+    transform: skew(0.08deg);
+  }
+  30% {
+    clip: rect(38px, 9999px, 93px, 0);
+    transform: skew(0.55deg);
+  }
+  35% {
+    clip: rect(18px, 9999px, 67px, 0);
+    transform: skew(0.31deg);
+  }
+  40% {
+    clip: rect(96px, 9999px, 11px, 0);
+    transform: skew(0.79deg);
+  }
+  45% {
+    clip: rect(54px, 9999px, 85px, 0);
+    transform: skew(0.23deg);
+  }
+  50% {
+    clip: rect(2px, 9999px, 73px, 0);
+    transform: skew(0.64deg);
+  }
+  55% {
+    clip: rect(88px, 9999px, 30px, 0);
+    transform: skew(0.42deg);
+  }
+  60% {
+    clip: rect(13px, 9999px, 69px, 0);
+    transform: skew(0.97deg);
+  }
+  65% {
+    clip: rect(47px, 9999px, 22px, 0);
+    transform: skew(0.19deg);
+  }
+  70% {
+    clip: rect(75px, 9999px, 50px, 0);
+    transform: skew(0.86deg);
+  }
+  75% {
+    clip: rect(34px, 9999px, 98px, 0);
+    transform: skew(0.03deg);
+  }
+  80% {
+    clip: rect(60px, 9999px, 7px, 0);
+    transform: skew(0.7deg);
+  }
+  85% {
+    clip: rect(25px, 9999px, 80px, 0);
+    transform: skew(0.48deg);
+  }
+  90% {
+    clip: rect(99px, 9999px, 42px, 0);
+    transform: skew(0.11deg);
+  }
+  95% {
+    clip: rect(9px, 9999px, 57px, 0);
+    transform: skew(0.94deg);
+  }
+  100% {
+    clip: rect(66px, 9999px, 35px, 0);
+    transform: skew(0.27deg);
+  }
+}
+
+@keyframes glitch-skew {
+  0% {
+    transform: skew(-3deg);
+  }
+  10% {
+    transform: skew(4deg);
+  }
+  20% {
+    transform: skew(-2deg);
+  }
+  30% {
+    transform: skew(3deg);
+  }
+  40% {
+    transform: skew(-4deg);
+  }
+  50% {
+    transform: skew(2deg);
+  }
+  60% {
+    transform: skew(-3deg);
+  }
+  70% {
+    transform: skew(1deg);
+  }
+  80% {
+    transform: skew(-2deg);
+  }
+  90% {
+    transform: skew(4deg);
+  }
+  100% {
+    transform: skew(-1deg);
+  }
+}
+
+@keyframes glitch-skew2 {
+  0% {
+    transform: skew(-1deg);
+  }
+  10% {
+    transform: skew(1deg);
+  }
+  20% {
+    transform: skew(-2deg);
+  }
+  30% {
+    transform: skew(0.5deg);
+  }
+  40% {
+    transform: skew(-0.5deg);
+  }
+  50% {
+    transform: skew(1deg);
+  }
+  60% {
+    transform: skew(-2deg);
+  }
+  70% {
+    transform: skew(0.5deg);
+  }
+  80% {
+    transform: skew(-2deg);
+  }
+  90% {
+    transform: skew(0.8deg);
+  }
+  100% {
+    transform: skew(-1deg);
+  }
+}
+
 @keyframes scroll {
   from {
     transform: translateX(0);
@@ -686,6 +1080,8 @@ footer {
 @media screen and (min-width: 1000px) {
   body {
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
   nav {
@@ -716,50 +1112,56 @@ footer {
     margin-top: 2em;
     display: flex;
     justify-content: center;
+    cursor: pointer;
   }
 
   .nav-links a {
     color: var(--fill);
-    font-size: 1rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.3em;
   }
 
+  /* Glitch Effect Styles */
   .glitch {
     position: relative;
   }
 
+  .glitch:hover {
+    animation: glitch-skew 1s infinite linear alternate-reverse;
+  }
+
   .glitch:before,
   .glitch:after {
-    content: attr(data-content);
+    content: attr(data-text);
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    visibility: hidden;
-  }
-
-  .glitch:hover:before,
-  .glitch:hover:after {
-    visibility: visible; /* Show on hover */
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
   .glitch:before {
-    color: #05fcd9;
-    z-index: -1;
+    left: 2px;
+    text-shadow: -2px 0 rgba(5, 252, 217, 0.8);
   }
 
   .glitch:after {
-    color: #fd2054;
-    z-index: -2;
+    left: -2px;
+    text-shadow:
+      -2px 0 rgba(253, 32, 84, 0.8),
+      2px 2px rgba(5, 252, 217, 0.8);
   }
 
   .glitch:hover:before {
-    animation: glitchy 0.3s ease 0.3s infinite;
+    opacity: 1;
+    animation: glitch-anim 5s infinite linear alternate-reverse;
   }
 
   .glitch:hover:after {
-    animation: glitchy 0.3s ease infinite reverse;
+    opacity: 1;
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
   }
 
   nav ul {
@@ -789,9 +1191,11 @@ footer {
   main {
     margin-left: 100px;
     padding: 20px;
-    box-sizing: border-box;
     width: calc(100% - 100px);
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
   }
 
   .container {
@@ -819,18 +1223,16 @@ footer {
     margin-top: 2em;
     width: 50%;
     height: 100%;
-    overflow-y: auto;
     padding-left: 2em;
     scroll-behavior: smooth;
-  }
-
-  .info-container > *:last-child {
-    padding-bottom: 1em;
+    display: flex;
+    flex-direction: column;
   }
 
   footer {
-    margin-left: 100px;
-    width: calc(100% - 100px);
+    position: fixed;
+    bottom: 0;
+    right: 0;
   }
 }
 
@@ -840,11 +1242,6 @@ footer {
   }
 
   main {
-    margin-left: 150px;
-    width: calc(100% - 150px);
-  }
-
-  footer {
     margin-left: 150px;
     width: calc(100% - 150px);
   }
