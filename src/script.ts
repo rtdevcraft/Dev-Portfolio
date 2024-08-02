@@ -1,7 +1,7 @@
 export {};
 
-// Interfaces
-interface ThemeImages {
+// Type definitions
+interface ThemeConfig {
   headerBg: string;
   hero: {
     small: string;
@@ -16,53 +16,53 @@ interface ThemeImages {
   work: string;
   emailMe: string;
   copyEmailIcon: string;
-  reactRouterLogoImage: string;
-  githubLogoImage: string;
+  reactRouterLogoImages: string;
+  githubLogoImages: string;
+  moreAbout: string;
+  interests: string;
+  recs: string;
+  certs: string;
 }
 
-interface ThemeConfig {
-  light: ThemeImages;
-  dark: ThemeImages;
+interface ThemeConfigs {
+  light: ThemeConfig;
+  dark: ThemeConfig;
 }
 
-interface DOMElements {
-  themeToggle: HTMLElement | null;
-  hamburgerButton: HTMLElement | null;
-  hamburgerIcon: HTMLElement | null;
+interface CachedElements {
+  themeToggle: HTMLButtonElement;
+  hamburgerButton: HTMLButtonElement;
+  hamburgerIcon: HTMLElement;
   body: HTMLElement;
-  header: HTMLElement | null;
-  navLinks: HTMLElement | null;
-  heroImage: HTMLImageElement | null;
-  githubImage: HTMLImageElement | null;
-  linkedinImage: HTMLImageElement | null;
-  emailImage: HTMLImageElement | null;
-  resumeImage: HTMLImageElement | null;
-  introImage: HTMLImageElement | null;
-  toolboxImage: HTMLImageElement | null;
-  workImage: HTMLImageElement | null;
-  emailMeImage: HTMLImageElement | null;
-  copyEmailIcon: HTMLImageElement | null;
+  header: HTMLElement;
+  navLinks: HTMLElement;
+  heroImage: HTMLImageElement;
+  githubImage: HTMLImageElement;
+  linkedinImage: HTMLImageElement;
+  emailImage: HTMLImageElement;
+  resumeImage: HTMLImageElement;
+  introImage: HTMLImageElement;
+  toolboxImage: HTMLImageElement;
+  workImage: HTMLImageElement;
+  emailMeImage: HTMLImageElement;
+  copyEmailIcon: HTMLImageElement;
   slides: NodeListOf<HTMLElement>;
-  prevButton: HTMLElement | null;
-  nextButton: HTMLElement | null;
-  reactRouterLogoImage: HTMLImageElement | null;
-  githubLogoImage: HTMLImageElement | null;
+  prevButton: HTMLButtonElement;
+  nextButton: HTMLButtonElement;
+  reactRouterLogoImages: NodeListOf<HTMLImageElement>;
+  githubLogoImages: NodeListOf<HTMLImageElement>;
+  moreAboutImage: HTMLImageElement;
+  interestsImage: HTMLImageElement;
+  recsImage: HTMLImageElement;
+  certsImage: HTMLImageElement;
 }
 
 interface SlideBackground {
   url: string;
 }
 
-interface Window {
-  toastNotification: IToastNotification;
-}
-
-interface IToastNotification {
-  show(message: string, duration?: number): void;
-}
-
 // Theme configuration
-const themeConfig = {
+const themeConfig: ThemeConfigs = {
   light: {
     headerBg: '/assets/images/header-bg-light.jpg',
     hero: {
@@ -78,8 +78,12 @@ const themeConfig = {
     work: '/assets/images/work.jpg',
     emailMe: '/assets/images/email-me.jpg',
     copyEmailIcon: '/assets/images/copy-email.png',
-    reactRouterLogoImage: '/assets/images/ReactRouterlogo.png',
-    githubLogoImage: '/assets/images/Githublogo.png',
+    reactRouterLogoImages: '/assets/images/ReactRouterlogo.png',
+    githubLogoImages: '/assets/images/Githublogo.png',
+    moreAbout: '/assets/images/more-about.jpg',
+    interests: '/assets/images/interests.jpg',
+    recs: '/assets/images/recs.jpg',
+    certs: '/assets/images/certs.jpg',
   },
   dark: {
     headerBg: '/assets/images/header-bg.jpg',
@@ -96,115 +100,185 @@ const themeConfig = {
     work: '/assets/images/work-dark.jpg',
     emailMe: '/assets/images/email-me-dark.jpg',
     copyEmailIcon: '/assets/images/copy-email-dark.png',
-    reactRouterLogoImage: '/assets/images/ReactRouterlogo-w.png',
-    githubLogoImage: '/assets/images/Githublogo-w.png',
+    reactRouterLogoImages: '/assets/images/ReactRouterlogo-w.png',
+    githubLogoImages: '/assets/images/Githublogo-w.png',
+    moreAbout: '/assets/images/more-about-dark.jpg',
+    interests: '/assets/images/interests-dark.jpg',
+    recs: '/assets/images/recs-dark.jpg',
+    certs: '/assets/images/certs-dark.jpg',
   },
 };
 
-// Cache DOM elements
-const elements: DOMElements = {
-  themeToggle: document.getElementById('switch-theme'),
-  hamburgerButton: document.getElementById('hamburger-button'),
-  hamburgerIcon: document.querySelector('.hamburger-icon'),
+// Cached DOM elements
+const getCachedElements = (): CachedElements => ({
+  themeToggle: document.getElementById('switch-theme') as HTMLButtonElement,
+  hamburgerButton: document.getElementById(
+    'hamburger-button'
+  ) as HTMLButtonElement,
+  hamburgerIcon: document.querySelector('.hamburger-icon') as HTMLElement,
   body: document.body,
-  header: document.querySelector('header'),
-  navLinks: document.getElementById('nav-links'),
-  heroImage: document.querySelector('.hero__image'),
-  githubImage: document.querySelector('.social-links img[src*="github"]'),
-  linkedinImage: document.querySelector('.social-links img[src*="linkedin"]'),
-  emailImage: document.querySelector('a[href^="mailto:"] img'),
-  resumeImage: document.querySelector('.social-links img[src*="resume"]'),
-  introImage: document.querySelector('#about .header-image'),
-  toolboxImage: document.querySelector('#toolbox .header-image'),
-  workImage: document.querySelector('#work .header-image'),
-  emailMeImage: document.querySelector('#email-me .header-image'),
-  copyEmailIcon: document.querySelector('#email-me img[src*="copy-email"]'),
-  slides: document.querySelectorAll('.slide'),
-  prevButton: document.querySelector('.nav-arrow.prev'),
-  nextButton: document.querySelector('.nav-arrow.next'),
-  reactRouterLogoImage: document.querySelector(
-    '.marquee__group img[src*="reactrouterlogo"]'
-  ),
-  githubLogoImage: document.querySelector(
-    '.marquee__group img[src*="githublogo"]'
-  ),
-};
+  header: document.querySelector('header') as HTMLElement,
+  navLinks: document.getElementById('nav-links') as HTMLElement,
+  heroImage: document.querySelector('.hero__image') as HTMLImageElement,
+  githubImage: document.querySelector(
+    '.social-links img[src*="github"]'
+  ) as HTMLImageElement,
+  linkedinImage: document.querySelector(
+    '.social-links img[src*="linkedin"]'
+  ) as HTMLImageElement,
+  emailImage: document.querySelector(
+    'a[href^="mailto:"] img'
+  ) as HTMLImageElement,
+  resumeImage: document.querySelector(
+    '.social-links img[src*="resume"]'
+  ) as HTMLImageElement,
+  introImage: document.querySelector(
+    '#about .header-image'
+  ) as HTMLImageElement,
+  toolboxImage: document.querySelector(
+    '#toolbox .header-image'
+  ) as HTMLImageElement,
+  workImage: document.querySelector('#work .header-image') as HTMLImageElement,
+  emailMeImage: document.querySelector(
+    '#email-me .header-image'
+  ) as HTMLImageElement,
+  copyEmailIcon: document.querySelector(
+    '#email-me img[src*="copy-email"]'
+  ) as HTMLImageElement,
+  slides: document.querySelectorAll('.slide') as NodeListOf<HTMLElement>,
+  prevButton: document.querySelector('.nav-arrow.prev') as HTMLButtonElement,
+  nextButton: document.querySelector('.nav-arrow.next') as HTMLButtonElement,
+  reactRouterLogoImages: document.querySelectorAll(
+    '#toolbox .marquee__group img[src="/assets/images/ReactRouterlogo.png"]'
+  ) as NodeListOf<HTMLImageElement>,
+  githubLogoImages: document.querySelectorAll(
+    '#toolbox .marquee__group img[src="/assets/images/Githublogo.png"]'
+  ) as NodeListOf<HTMLImageElement>,
+  moreAboutImage: document.querySelector(
+    '.about__more-about-me img[src="/assets/images/more-about.jpg"]'
+  ) as HTMLImageElement,
+  interestsImage: document.querySelector(
+    '.about__interests img[src="/assets/images/interests.jpg"]'
+  ) as HTMLImageElement,
+  recsImage: document.querySelector(
+    '.about__recs img[src="/assets/images/recs.jpg"]'
+  ) as HTMLImageElement,
+  certsImage: document.querySelector(
+    '.about__certs img[src="/assets/images/certs.jpg"]'
+  ) as HTMLImageElement,
+});
 
-// Functions
+// Helper functions
 const isLargeScreen = (): boolean =>
   window.matchMedia('(min-width: 1000px)').matches;
+const getCurrentTheme = (body: HTMLElement): 'light' | 'dark' =>
+  body.classList.contains('light-theme') ? 'light' : 'dark';
 
-const getCurrentTheme = (): 'light' | 'dark' =>
-  elements.body.classList.contains('light-theme') ? 'light' : 'dark';
-
-function updateImages(theme: 'light' | 'dark'): void {
+// Update images based on theme and screen size
+const updateImages = (
+  elements: CachedElements,
+  theme: 'light' | 'dark'
+): void => {
   const config = themeConfig[theme];
 
-  // Update header background
-  const header = document.querySelector('header');
-  if (header) {
-    header.style.backgroundImage = `url("${config.headerBg}")`;
-  }
-
-  // Update hero image
-  const heroImage = document.querySelector('.hero__image') as HTMLImageElement | null;
-  if (heroImage) {
-    heroImage.src = isLargeScreen() ? config.hero.large : config.hero.small;
-  }
-
-  // Update other images
-  const imageMappings: [string, keyof ThemeImages][] = [
-    ['.social-links img[src*="github"]', 'github'],
-    ['.social-links img[src*="linkedin"]', 'linkedin'],
-    ['a[href^="mailto:"] img', 'email'],
-    ['.social-links img[src*="resume"]', 'resume'],
-    ['#about .header-image', 'intro'],
-    ['#toolbox .header-image', 'toolbox'],
-    ['#work .header-image', 'work'],
-    ['#email-me .header-image', 'emailMe'],
-    ['#email-me img[src*="copy-email"]', 'copyEmailIcon'],
-    ['.marquee__group img[src*="reactrouterlogo"]', 'reactRouterLogoImage'],
-    ['.marquee__group img[src*="githublogo"]', 'githubLogoImage']
+  const imageMappings = [
+    {
+      element: elements.header,
+      prop: 'backgroundImage',
+      value: `url("${config.headerBg}")`,
+    },
+    {
+      element: elements.heroImage,
+      prop: 'src',
+      value: config.hero[isLargeScreen() ? 'large' : 'small'],
+    },
+    { element: elements.githubImage, prop: 'src', value: config.github },
+    { element: elements.linkedinImage, prop: 'src', value: config.linkedin },
+    { element: elements.emailImage, prop: 'src', value: config.email },
+    { element: elements.resumeImage, prop: 'src', value: config.resume },
+    { element: elements.introImage, prop: 'src', value: config.intro },
+    { element: elements.toolboxImage, prop: 'src', value: config.toolbox },
+    { element: elements.workImage, prop: 'src', value: config.work },
+    { element: elements.emailMeImage, prop: 'src', value: config.emailMe },
+    {
+      element: elements.copyEmailIcon,
+      prop: 'src',
+      value: config.copyEmailIcon,
+    },
+    {
+      elements: elements.reactRouterLogoImages,
+      value: config.reactRouterLogoImages,
+    },
+    {
+      elements: elements.githubLogoImages,
+      value: config.githubLogoImages,
+    },
+    { element: elements.moreAboutImage, prop: 'src', value: config.moreAbout },
+    { element: elements.interestsImage, prop: 'src', value: config.interests },
+    { element: elements.recsImage, prop: 'src', value: config.recs },
+    { element: elements.certsImage, prop: 'src', value: config.certs },
   ];
 
-  imageMappings.forEach(([selector, key]) => {
-    const img = document.querySelector(selector) as HTMLImageElement | null;
-    if (img) {
-      img.src = config[key];
+  imageMappings.forEach((mapping) => {
+    if ('element' in mapping) {
+      const { element, prop, value } = mapping;
+
+      if (element) {
+        if (prop === 'backgroundImage') {
+          (element as HTMLElement).style.backgroundImage = value;
+        } else if (prop === 'src') {
+          (element as HTMLImageElement).src = value;
+        }
+      }
+    } else if ('elements' in mapping) {
+      const { elements, value } = mapping;
+
+      if (elements instanceof NodeList) {
+        elements.forEach((el, index) => {
+          if (el instanceof HTMLImageElement) {
+            el.src = value;
+          }
+        });
+      }
     }
   });
-}
-
-const function toggleTheme(): void {
-  const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
+};
+// Theme toggle function
+const toggleTheme = (elements: CachedElements): void => {
+  const currentTheme = getCurrentTheme(elements.body);
   const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-  document.body.classList.remove(`${currentTheme}-theme`);
-  document.body.classList.add(`${newTheme}-theme`);
+  elements.body.classList.remove('light-theme', 'dark-theme');
+  elements.body.classList.add(`${newTheme}-theme`);
 
-  updateImages(newTheme);
+  updateImages(elements, newTheme);
 
   localStorage.setItem('theme', newTheme);
 
-  // Update aria-label for theme toggle buttons
   document.querySelectorAll('.switch-theme').forEach((button) => {
-    button.setAttribute('aria-label', `Switch to ${newTheme === 'light' ? 'dark' : 'light'} theme`);
+    button.setAttribute(
+      'aria-label',
+      `Switch to ${newTheme === 'light' ? 'dark' : 'light'} theme`
+    );
   });
-}
+};
 
-function initTheme(): void {
+// Initialize theme
+const initTheme = (elements: CachedElements): void => {
   const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-
-  document.body.classList.add(`${theme}-theme`);
-  updateImages(theme);
-
-  // Set initial aria-label for theme toggle buttons
+  const prefersDarkScheme = window.matchMedia(
+    '(prefers-color-scheme: dark)'
+  ).matches;
+  const theme = savedTheme || (prefersDarkScheme ? 'dark' : 'light');
+  elements.body.classList.add(`${theme}-theme`);
+  updateImages(elements, theme);
   document.querySelectorAll('.switch-theme').forEach((button) => {
-    button.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`);
+    button.setAttribute(
+      'aria-label',
+      `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`
+    );
   });
-}
+};
 
 // Slider functions
 const slideBackgrounds: SlideBackground[] = [
@@ -214,130 +288,107 @@ const slideBackgrounds: SlideBackground[] = [
   { url: 'https://mcdn.wallpapersafari.com/medium/18/88/gsAVlZ.jpg' },
 ];
 
-let currentIndex = 0;
+const createSlider = (elements: CachedElements) => {
+  let currentIndex = 0;
 
-const showSlide = (index: number): void => {
-  elements.slides.forEach((slide, i) => {
-    const content = slide.querySelector('.slide__content');
-    if (i === index) {
-      slide.classList.add('active');
-      slide.classList.remove('nonActive');
+  const showSlide = (index: number): void => {
+    elements.slides.forEach((slide, i) => {
+      const content = slide.querySelector('.slide__content') as HTMLElement;
+      const isActive = i === index;
+      slide.classList.toggle('active', isActive);
+      slide.classList.toggle('nonActive', !isActive);
       slide.style.backgroundImage = `url('${slideBackgrounds[i].url}')`;
-      if (content) (content as HTMLElement).style.display = 'flex';
-      slide.setAttribute('aria-hidden', 'false');
-      slide.setAttribute('tabindex', '0');
-    } else {
-      slide.classList.remove('active');
-      slide.classList.add('nonActive');
-      if (content) (content as HTMLElement).style.display = 'none';
-      slide.setAttribute('aria-hidden', 'true');
-      slide.setAttribute('tabindex', '-1');
+      if (content) content.style.display = isActive ? 'flex' : 'none';
+      slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      slide.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    const slideAnnouncement = document.getElementById('slide-announcement');
+    if (slideAnnouncement) {
+      slideAnnouncement.textContent = `Showing slide ${index + 1} of ${elements.slides.length}`;
     }
-  });
+  };
 
-  const slideAnnouncement = document.getElementById('slide-announcement');
-  if (slideAnnouncement) {
-    slideAnnouncement.textContent = `Showing slide ${index + 1} of ${elements.slides.length}`;
-  }
+  const nextSlide = (): void => {
+    currentIndex = (currentIndex + 1) % elements.slides.length;
+    showSlide(currentIndex);
+  };
+
+  const prevSlide = (): void => {
+    currentIndex =
+      (currentIndex - 1 + elements.slides.length) % elements.slides.length;
+    showSlide(currentIndex);
+  };
+
+  const handleKeyboardNavigation = (event: KeyboardEvent): void => {
+    if (event.key === 'ArrowLeft') {
+      prevSlide();
+    } else if (event.key === 'ArrowRight') {
+      nextSlide();
+    }
+  };
+
+  return { showSlide, nextSlide, prevSlide, handleKeyboardNavigation };
 };
 
-const nextSlide = (): void => {
-  currentIndex = (currentIndex + 1) % elements.slides.length;
-  showSlide(currentIndex);
+// Menu toggle function
+const toggleMenu = (elements: CachedElements): void => {
+  elements.navLinks.classList.toggle('active-menu');
+  elements.hamburgerIcon.classList.toggle('active-icon');
+  const isExpanded = elements.navLinks.classList.contains('active-menu');
+  elements.hamburgerButton.setAttribute('aria-expanded', isExpanded.toString());
 };
 
-const prevSlide = (): void => {
-  currentIndex =
-    (currentIndex - 1 + elements.slides.length) % elements.slides.length;
-  showSlide(currentIndex);
-};
-
-const handleKeyboardNavigation = (event: KeyboardEvent): void => {
-  if (event.key === 'ArrowLeft') {
-    prevSlide();
-  } else if (event.key === 'ArrowRight') {
-    nextSlide();
-  }
-};
-
-const toggleMenu = (): void => {
-  elements.navLinks?.classList.toggle('active-menu');
-  elements.hamburgerIcon?.classList.toggle('active-icon');
-  const isExpanded = elements.navLinks?.classList.contains('active-menu');
-  elements.hamburgerButton?.setAttribute('aria-expanded', String(isExpanded));
-};
-
-const initSlider = (): void => {
+// Initialize slider
+const initSlider = (elements: CachedElements): void => {
   if (elements.slides.length > 0) {
+    const { showSlide, nextSlide, prevSlide, handleKeyboardNavigation } =
+      createSlider(elements);
+
     elements.slides.forEach((slide, index) => {
       if (slideBackgrounds[index]) {
         slide.style.backgroundImage = `url('${slideBackgrounds[index].url}')`;
       }
     });
-    showSlide(currentIndex);
+    showSlide(0);
+
+    if (elements.nextButton) {
+      elements.nextButton.addEventListener('click', nextSlide);
+    }
+
+    if (elements.prevButton) {
+      elements.prevButton.addEventListener('click', prevSlide);
+    }
+
+    const sliderContainer = document.querySelector('.slider-container');
+    if (sliderContainer) {
+      sliderContainer.addEventListener('keydown', (event: Event) => {
+        handleKeyboardNavigation(event as KeyboardEvent);
+      });
+    }
   } else {
     console.warn('No slides found');
   }
-
-  elements.nextButton?.addEventListener('click', nextSlide);
-  elements.prevButton?.addEventListener('click', prevSlide);
-
-  const sliderContainer = document.querySelector('.slider-container');
-  sliderContainer?.addEventListener('keydown', (event: Event) => {
-    handleKeyboardNavigation(event as KeyboardEvent);
-  });
-};
-
-const init = (): void => {
-  initTheme();
-  if (document.querySelector('.slider-container')) {
-    initSlider();
-  }
-
-  document.querySelectorAll('.switch-theme').forEach((button) => {
-    button.addEventListener('click', toggleTheme);
-  });
-
-  elements.themeToggle?.addEventListener('click', toggleTheme);
-  elements.hamburgerButton?.addEventListener('click', toggleMenu);
-
-  elements.navLinks?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (elements.navLinks?.classList.contains('active-menu')) {
-        toggleMenu();
-      }
-    });
-  });
-
-  const liveRegion = document.createElement('div');
-  liveRegion.id = 'slide-announcement';
-  liveRegion.className = 'sr-only';
-  liveRegion.setAttribute('aria-live', 'polite');
-  document.body.appendChild(liveRegion);
-
-  window.addEventListener('resize', () => {
-    updateImages(getCurrentTheme());
-  });
 };
 
 // Toast Notification
-class ToastNotificationImpl implements IToastNotification {
-  private container: HTMLDivElement;
+interface ToastNotification {
+  show: (message: string, duration?: number) => void;
+}
 
-  constructor() {
-    this.container = document.createElement('div');
-    this.container.id = 'toast-container';
-    document.body.appendChild(this.container);
+const createToastNotification = (): ToastNotification => {
+  const container = document.createElement('div');
+  container.id = 'toast-container';
+  document.body.appendChild(container);
 
-    Object.assign(this.container.style, {
-      position: 'fixed',
-      bottom: '20px',
-      right: '20px',
-      zIndex: '1000',
-    });
-  }
+  Object.assign(container.style, {
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+    zIndex: '1000',
+  });
 
-  show(message: string, duration = 3000): void {
+  const show = (message: string, duration = 3000): void => {
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
@@ -352,39 +403,83 @@ class ToastNotificationImpl implements IToastNotification {
       transition: 'opacity 0.3s ease-in-out',
     });
 
-    this.container.appendChild(toast);
+    container.appendChild(toast);
 
     // Trigger reflow to enable transition
     toast.offsetHeight;
 
+    // Make the toast visible
     toast.style.opacity = '1';
 
+    // Remove the toast after the specified duration
     setTimeout(() => {
       toast.style.opacity = '0';
       toast.addEventListener('transitionend', () => {
-        this.container.removeChild(toast);
+        container.removeChild(toast);
       });
     }, duration);
-  }
-}
+  };
 
-// Global augmentation
+  return { show };
+};
+
+// Create a global instance of ToastNotification
 declare global {
   interface Window {
-    toastNotification: IToastNotification;
+    toastNotification: ToastNotification;
   }
 }
 
-// Create the global instance
-window.toastNotification = new ToastNotificationImpl();
+window.toastNotification = createToastNotification();
 
-document.addEventListener('DOMContentLoaded', () => {
-  init();
+// Initialize everything
+const init = (): void => {
+  const elements = getCachedElements();
 
+  initTheme(elements);
+  if (document.querySelector('.slider-container')) {
+    initSlider(elements);
+  }
+
+  // Event listeners
+  document.querySelectorAll('.switch-theme').forEach((button) => {
+    button.addEventListener('click', () => toggleTheme(elements));
+  });
+
+  if (elements.themeToggle) {
+    elements.themeToggle.addEventListener('click', () => toggleTheme(elements));
+  }
+  if (elements.hamburgerButton) {
+    elements.hamburgerButton.addEventListener('click', () =>
+      toggleMenu(elements)
+    );
+  }
+
+  if (elements.navLinks) {
+    elements.navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (elements.navLinks.classList.contains('active-menu')) {
+          toggleMenu(elements);
+        }
+      });
+    });
+  }
+
+  // Create ARIA live region for slide announcements
+  const liveRegion = document.createElement('div');
+  liveRegion.id = 'slide-announcement';
+  liveRegion.className = 'sr-only';
+  liveRegion.setAttribute('aria-live', 'polite');
+  document.body.appendChild(liveRegion);
+
+  // Window resize event listener
+  window.addEventListener('resize', () => {
+    updateImages(elements, getCurrentTheme(elements.body));
+  });
+
+  // Email copy functionality
   const copyEmailIcon = document.getElementById('copy-email-icon');
-  const emailLink = document.querySelector(
-    '.email-me__text a[data-email]'
-  ) as HTMLAnchorElement | null;
+  const emailLink = document.querySelector('.email-me__text a[data-email]');
 
   if (copyEmailIcon && emailLink) {
     copyEmailIcon.addEventListener('click', (e) => {
@@ -421,4 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
+};
+
+// Run initialization when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', init);

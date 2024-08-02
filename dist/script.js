@@ -15,8 +15,12 @@ const themeConfig = {
         work: '/assets/images/work.jpg',
         emailMe: '/assets/images/email-me.jpg',
         copyEmailIcon: '/assets/images/copy-email.png',
-        reactRouterLogoImage: '/assets/images/ReactRouterlogo.png',
-        githubLogoImage: '/assets/images/Githublogo.png',
+        reactRouterLogoImages: '/assets/images/ReactRouterlogo.png',
+        githubLogoImages: '/assets/images/Githublogo.png',
+        moreAbout: '/assets/images/more-about.jpg',
+        interests: '/assets/images/interests.jpg',
+        recs: '/assets/images/recs.jpg',
+        certs: '/assets/images/certs.jpg',
     },
     dark: {
         headerBg: '/assets/images/header-bg.jpg',
@@ -33,12 +37,16 @@ const themeConfig = {
         work: '/assets/images/work-dark.jpg',
         emailMe: '/assets/images/email-me-dark.jpg',
         copyEmailIcon: '/assets/images/copy-email-dark.png',
-        reactRouterLogoImage: '/assets/images/ReactRouterlogo-w.png',
-        githubLogoImage: '/assets/images/Githublogo-w.png',
+        reactRouterLogoImages: '/assets/images/ReactRouterlogo-w.png',
+        githubLogoImages: '/assets/images/Githublogo-w.png',
+        moreAbout: '/assets/images/more-about-dark.jpg',
+        interests: '/assets/images/interests-dark.jpg',
+        recs: '/assets/images/recs-dark.jpg',
+        certs: '/assets/images/certs-dark.jpg',
     },
 };
-// Cache DOM elements
-const elements = {
+// Cached DOM elements
+const getCachedElements = () => ({
     themeToggle: document.getElementById('switch-theme'),
     hamburgerButton: document.getElementById('hamburger-button'),
     hamburgerIcon: document.querySelector('.hamburger-icon'),
@@ -58,60 +66,99 @@ const elements = {
     slides: document.querySelectorAll('.slide'),
     prevButton: document.querySelector('.nav-arrow.prev'),
     nextButton: document.querySelector('.nav-arrow.next'),
-    reactRouterLogoImage: document.querySelector('.marquee__group img[src*="reactrouterlogo"]'),
-    githubLogoImage: document.querySelector('.marquee__group img[src*="githublogo"]'),
-};
-// Functions
+    reactRouterLogoImages: document.querySelectorAll('#toolbox .marquee__group img[src="/assets/images/ReactRouterlogo.png"]'),
+    githubLogoImages: document.querySelectorAll('#toolbox .marquee__group img[src="/assets/images/Githublogo.png"]'),
+    moreAboutImage: document.querySelector('.about__more-about-me img[src="/assets/images/more-about.jpg"]'),
+    interestsImage: document.querySelector('.about__interests img[src="/assets/images/interests.jpg"]'),
+    recsImage: document.querySelector('.about__recs img[src="/assets/images/recs.jpg"]'),
+    certsImage: document.querySelector('.about__certs img[src="/assets/images/certs.jpg"]'),
+});
+// Helper functions
 const isLargeScreen = () => window.matchMedia('(min-width: 1000px)').matches;
-const getCurrentTheme = () => elements.body.classList.contains('light-theme') ? 'light' : 'dark';
-const updateImages = (theme) => {
+const getCurrentTheme = (body) => body.classList.contains('light-theme') ? 'light' : 'dark';
+// Update images based on theme and screen size
+const updateImages = (elements, theme) => {
     const config = themeConfig[theme];
-    if (elements.header) {
-        elements.header.style.backgroundImage = `url("${config.headerBg}")`;
-    }
-    if (elements.heroImage) {
-        elements.heroImage.src = isLargeScreen()
-            ? config.hero.large
-            : config.hero.small;
-    }
-    // Update other images
     const imageMappings = [
-        [elements.githubImage, 'github'],
-        [elements.linkedinImage, 'linkedin'],
-        [elements.emailImage, 'email'],
-        [elements.resumeImage, 'resume'],
-        [elements.introImage, 'intro'],
-        [elements.toolboxImage, 'toolbox'],
-        [elements.workImage, 'work'],
-        [elements.emailMeImage, 'emailMe'],
-        [elements.copyEmailIcon, 'copyEmailIcon'],
-        [elements.reactRouterLogoImage, 'reactRouterLogoImage'],
-        [elements.githubLogoImage, 'githubLogoImage'],
+        {
+            element: elements.header,
+            prop: 'backgroundImage',
+            value: `url("${config.headerBg}")`,
+        },
+        {
+            element: elements.heroImage,
+            prop: 'src',
+            value: config.hero[isLargeScreen() ? 'large' : 'small'],
+        },
+        { element: elements.githubImage, prop: 'src', value: config.github },
+        { element: elements.linkedinImage, prop: 'src', value: config.linkedin },
+        { element: elements.emailImage, prop: 'src', value: config.email },
+        { element: elements.resumeImage, prop: 'src', value: config.resume },
+        { element: elements.introImage, prop: 'src', value: config.intro },
+        { element: elements.toolboxImage, prop: 'src', value: config.toolbox },
+        { element: elements.workImage, prop: 'src', value: config.work },
+        { element: elements.emailMeImage, prop: 'src', value: config.emailMe },
+        {
+            element: elements.copyEmailIcon,
+            prop: 'src',
+            value: config.copyEmailIcon,
+        },
+        {
+            elements: elements.reactRouterLogoImages,
+            value: config.reactRouterLogoImages,
+        },
+        {
+            elements: elements.githubLogoImages,
+            value: config.githubLogoImages,
+        },
+        { element: elements.moreAboutImage, prop: 'src', value: config.moreAbout },
+        { element: elements.interestsImage, prop: 'src', value: config.interests },
+        { element: elements.recsImage, prop: 'src', value: config.recs },
+        { element: elements.certsImage, prop: 'src', value: config.certs },
     ];
-    imageMappings.forEach(([element, key]) => {
-        elements.heroImage.src = isLargeScreen()
-            ? config.hero.large
-            : config.hero.small;
+    imageMappings.forEach((mapping) => {
+        if ('element' in mapping) {
+            const { element, prop, value } = mapping;
+            if (element) {
+                if (prop === 'backgroundImage') {
+                    element.style.backgroundImage = value;
+                }
+                else if (prop === 'src') {
+                    element.src = value;
+                }
+            }
+        }
+        else if ('elements' in mapping) {
+            const { elements, value } = mapping;
+            if (elements instanceof NodeList) {
+                elements.forEach((el, index) => {
+                    if (el instanceof HTMLImageElement) {
+                        el.src = value;
+                    }
+                });
+            }
+        }
     });
 };
-const toggleTheme = () => {
-    const newTheme = getCurrentTheme() === 'light' ? 'dark' : 'light';
+// Theme toggle function
+const toggleTheme = (elements) => {
+    const currentTheme = getCurrentTheme(elements.body);
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     elements.body.classList.remove('light-theme', 'dark-theme');
     elements.body.classList.add(`${newTheme}-theme`);
-    updateImages(newTheme);
+    updateImages(elements, newTheme);
     localStorage.setItem('theme', newTheme);
     document.querySelectorAll('.switch-theme').forEach((button) => {
         button.setAttribute('aria-label', `Switch to ${newTheme === 'light' ? 'dark' : 'light'} theme`);
     });
 };
-const initTheme = () => {
+// Initialize theme
+const initTheme = (elements) => {
     const savedTheme = localStorage.getItem('theme');
-    const defaultTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-    const theme = savedTheme || defaultTheme;
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = savedTheme || (prefersDarkScheme ? 'dark' : 'light');
     elements.body.classList.add(`${theme}-theme`);
-    updateImages(theme);
+    updateImages(elements, theme);
     document.querySelectorAll('.switch-theme').forEach((button) => {
         button.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`);
     });
@@ -123,119 +170,89 @@ const slideBackgrounds = [
     { url: '/assets/images/slide3.jpg' },
     { url: 'https://mcdn.wallpapersafari.com/medium/18/88/gsAVlZ.jpg' },
 ];
-let currentIndex = 0;
-const showSlide = (index) => {
-    elements.slides.forEach((slide, i) => {
-        const content = slide.querySelector('.slide__content');
-        if (i === index) {
-            slide.classList.add('active');
-            slide.classList.remove('nonActive');
+const createSlider = (elements) => {
+    let currentIndex = 0;
+    const showSlide = (index) => {
+        elements.slides.forEach((slide, i) => {
+            const content = slide.querySelector('.slide__content');
+            const isActive = i === index;
+            slide.classList.toggle('active', isActive);
+            slide.classList.toggle('nonActive', !isActive);
             slide.style.backgroundImage = `url('${slideBackgrounds[i].url}')`;
             if (content)
-                content.style.display = 'flex';
-            slide.setAttribute('aria-hidden', 'false');
-            slide.setAttribute('tabindex', '0');
+                content.style.display = isActive ? 'flex' : 'none';
+            slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+            slide.setAttribute('tabindex', isActive ? '0' : '-1');
+        });
+        const slideAnnouncement = document.getElementById('slide-announcement');
+        if (slideAnnouncement) {
+            slideAnnouncement.textContent = `Showing slide ${index + 1} of ${elements.slides.length}`;
         }
-        else {
-            slide.classList.remove('active');
-            slide.classList.add('nonActive');
-            if (content)
-                content.style.display = 'none';
-            slide.setAttribute('aria-hidden', 'true');
-            slide.setAttribute('tabindex', '-1');
+    };
+    const nextSlide = () => {
+        currentIndex = (currentIndex + 1) % elements.slides.length;
+        showSlide(currentIndex);
+    };
+    const prevSlide = () => {
+        currentIndex =
+            (currentIndex - 1 + elements.slides.length) % elements.slides.length;
+        showSlide(currentIndex);
+    };
+    const handleKeyboardNavigation = (event) => {
+        if (event.key === 'ArrowLeft') {
+            prevSlide();
         }
-    });
-    const slideAnnouncement = document.getElementById('slide-announcement');
-    if (slideAnnouncement) {
-        slideAnnouncement.textContent = `Showing slide ${index + 1} of ${elements.slides.length}`;
-    }
+        else if (event.key === 'ArrowRight') {
+            nextSlide();
+        }
+    };
+    return { showSlide, nextSlide, prevSlide, handleKeyboardNavigation };
 };
-const nextSlide = () => {
-    currentIndex = (currentIndex + 1) % elements.slides.length;
-    showSlide(currentIndex);
+// Menu toggle function
+const toggleMenu = (elements) => {
+    elements.navLinks.classList.toggle('active-menu');
+    elements.hamburgerIcon.classList.toggle('active-icon');
+    const isExpanded = elements.navLinks.classList.contains('active-menu');
+    elements.hamburgerButton.setAttribute('aria-expanded', isExpanded.toString());
 };
-const prevSlide = () => {
-    currentIndex =
-        (currentIndex - 1 + elements.slides.length) % elements.slides.length;
-    showSlide(currentIndex);
-};
-const handleKeyboardNavigation = (event) => {
-    if (event.key === 'ArrowLeft') {
-        prevSlide();
-    }
-    else if (event.key === 'ArrowRight') {
-        nextSlide();
-    }
-};
-const toggleMenu = () => {
-    var _a, _b, _c, _d;
-    (_a = elements.navLinks) === null || _a === void 0 ? void 0 : _a.classList.toggle('active-menu');
-    (_b = elements.hamburgerIcon) === null || _b === void 0 ? void 0 : _b.classList.toggle('active-icon');
-    const isExpanded = (_c = elements.navLinks) === null || _c === void 0 ? void 0 : _c.classList.contains('active-menu');
-    (_d = elements.hamburgerButton) === null || _d === void 0 ? void 0 : _d.setAttribute('aria-expanded', String(isExpanded));
-};
-const initSlider = () => {
-    var _a, _b;
+// Initialize slider
+const initSlider = (elements) => {
     if (elements.slides.length > 0) {
+        const { showSlide, nextSlide, prevSlide, handleKeyboardNavigation } = createSlider(elements);
         elements.slides.forEach((slide, index) => {
             if (slideBackgrounds[index]) {
                 slide.style.backgroundImage = `url('${slideBackgrounds[index].url}')`;
             }
         });
-        showSlide(currentIndex);
+        showSlide(0);
+        if (elements.nextButton) {
+            elements.nextButton.addEventListener('click', nextSlide);
+        }
+        if (elements.prevButton) {
+            elements.prevButton.addEventListener('click', prevSlide);
+        }
+        const sliderContainer = document.querySelector('.slider-container');
+        if (sliderContainer) {
+            sliderContainer.addEventListener('keydown', (event) => {
+                handleKeyboardNavigation(event);
+            });
+        }
     }
     else {
         console.warn('No slides found');
     }
-    (_a = elements.nextButton) === null || _a === void 0 ? void 0 : _a.addEventListener('click', nextSlide);
-    (_b = elements.prevButton) === null || _b === void 0 ? void 0 : _b.addEventListener('click', prevSlide);
-    const sliderContainer = document.querySelector('.slider-container');
-    sliderContainer === null || sliderContainer === void 0 ? void 0 : sliderContainer.addEventListener('keydown', (event) => {
-        handleKeyboardNavigation(event);
-    });
 };
-const init = () => {
-    var _a, _b, _c;
-    initTheme();
-    if (document.querySelector('.slider-container')) {
-        initSlider();
-    }
-    document.querySelectorAll('.switch-theme').forEach((button) => {
-        button.addEventListener('click', toggleTheme);
+const createToastNotification = () => {
+    const container = document.createElement('div');
+    container.id = 'toast-container';
+    document.body.appendChild(container);
+    Object.assign(container.style, {
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        zIndex: '1000',
     });
-    (_a = elements.themeToggle) === null || _a === void 0 ? void 0 : _a.addEventListener('click', toggleTheme);
-    (_b = elements.hamburgerButton) === null || _b === void 0 ? void 0 : _b.addEventListener('click', toggleMenu);
-    (_c = elements.navLinks) === null || _c === void 0 ? void 0 : _c.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-            var _a;
-            if ((_a = elements.navLinks) === null || _a === void 0 ? void 0 : _a.classList.contains('active-menu')) {
-                toggleMenu();
-            }
-        });
-    });
-    const liveRegion = document.createElement('div');
-    liveRegion.id = 'slide-announcement';
-    liveRegion.className = 'sr-only';
-    liveRegion.setAttribute('aria-live', 'polite');
-    document.body.appendChild(liveRegion);
-    window.addEventListener('resize', () => {
-        updateImages(getCurrentTheme());
-    });
-};
-// Toast Notification
-class ToastNotificationImpl {
-    constructor() {
-        this.container = document.createElement('div');
-        this.container.id = 'toast-container';
-        document.body.appendChild(this.container);
-        Object.assign(this.container.style, {
-            position: 'fixed',
-            bottom: '20px',
-            right: '20px',
-            zIndex: '1000',
-        });
-    }
-    show(message, duration = 3000) {
+    const show = (message, duration = 3000) => {
         const toast = document.createElement('div');
         toast.className = 'toast';
         toast.textContent = message;
@@ -248,22 +265,59 @@ class ToastNotificationImpl {
             opacity: '0',
             transition: 'opacity 0.3s ease-in-out',
         });
-        this.container.appendChild(toast);
+        container.appendChild(toast);
         // Trigger reflow to enable transition
         toast.offsetHeight;
+        // Make the toast visible
         toast.style.opacity = '1';
+        // Remove the toast after the specified duration
         setTimeout(() => {
             toast.style.opacity = '0';
             toast.addEventListener('transitionend', () => {
-                this.container.removeChild(toast);
+                container.removeChild(toast);
             });
         }, duration);
+    };
+    return { show };
+};
+window.toastNotification = createToastNotification();
+// Initialize everything
+const init = () => {
+    const elements = getCachedElements();
+    initTheme(elements);
+    if (document.querySelector('.slider-container')) {
+        initSlider(elements);
     }
-}
-// Create the global instance
-window.toastNotification = new ToastNotificationImpl();
-document.addEventListener('DOMContentLoaded', () => {
-    init();
+    // Event listeners
+    document.querySelectorAll('.switch-theme').forEach((button) => {
+        button.addEventListener('click', () => toggleTheme(elements));
+    });
+    if (elements.themeToggle) {
+        elements.themeToggle.addEventListener('click', () => toggleTheme(elements));
+    }
+    if (elements.hamburgerButton) {
+        elements.hamburgerButton.addEventListener('click', () => toggleMenu(elements));
+    }
+    if (elements.navLinks) {
+        elements.navLinks.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                if (elements.navLinks.classList.contains('active-menu')) {
+                    toggleMenu(elements);
+                }
+            });
+        });
+    }
+    // Create ARIA live region for slide announcements
+    const liveRegion = document.createElement('div');
+    liveRegion.id = 'slide-announcement';
+    liveRegion.className = 'sr-only';
+    liveRegion.setAttribute('aria-live', 'polite');
+    document.body.appendChild(liveRegion);
+    // Window resize event listener
+    window.addEventListener('resize', () => {
+        updateImages(elements, getCurrentTheme(elements.body));
+    });
+    // Email copy functionality
     const copyEmailIcon = document.getElementById('copy-email-icon');
     const emailLink = document.querySelector('.email-me__text a[data-email]');
     if (copyEmailIcon && emailLink) {
@@ -296,5 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
+};
+// Run initialization when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', init);
 export {};
