@@ -797,6 +797,8 @@ footer {
   color: var(--fill);
   text-decoration: none;
   margin: 0 0 1em 1em;
+  position: relative;
+  display: inline-block;
 }
 
 .about__cert-1,
@@ -1342,12 +1344,6 @@ footer {
     align-items: flex-start;
   }
 
-  .about__a-glitch {
-    color: var(--fill);
-    text-decoration: none;
-    margin-bottom: 1em;
-  }
-
   .about__a-glitch:hover {
     animation: glitch-skew 1s infinite linear alternate-reverse;
   }
@@ -1362,6 +1358,7 @@ footer {
     height: 100%;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
   }
 
   .about__a-glitch:before {
