@@ -339,30 +339,31 @@ const createSlider = (elements: CachedElements) => {
   return { showSlide, nextSlide, prevSlide, handleKeyboardNavigation };
 };
 
-const handleResponsiveMenu = () => {
-  const navLinks = document.getElementById('nav-links');
-  const hamburgerIcon = document.querySelector('.hamburger-icon');
-
-  if (window.innerWidth >= 1000 && navLinks.classList.contains('active-menu')) {
-    navLinks.classList.remove('active-menu');
-    hamburgerIcon.classList.remove('active-icon');
+const handleResponsiveMenu = (elements: CachedElements): void => {
+  if (
+    elements.navLinks &&
+    elements.hamburgerIcon &&
+    window.innerWidth >= 1000 &&
+    elements.navLinks.classList.contains('active-menu')
+  ) {
+    elements.navLinks.classList.remove('active-menu');
+    elements.hamburgerIcon.classList.remove('active-icon');
   }
 };
 
-// Add event listener for window resize
-window.addEventListener('resize', handleResponsiveMenu);
-
-// Call the function initially to set the correct state
-handleResponsiveMenu();
-
 // Menu toggle function
 const toggleMenu = (elements: CachedElements): void => {
-  elements.navLinks.classList.toggle('active-menu');
-  elements.hamburgerIcon.classList.toggle('active-icon');
-  const isExpanded = elements.navLinks.classList.contains('active-menu');
-  elements.hamburgerButton.setAttribute('aria-expanded', isExpanded.toString());
+  if (elements.navLinks && elements.hamburgerIcon && elements.hamburgerButton) {
+    elements.navLinks.classList.toggle('active-menu');
+    elements.hamburgerIcon.classList.toggle('active-icon');
+    const isExpanded = elements.navLinks.classList.contains('active-menu');
+    elements.hamburgerButton.setAttribute(
+      'aria-expanded',
+      isExpanded.toString()
+    );
+  }
   // Close menu if window is larger than 1000px
-  handleResponsiveMenu();
+  handleResponsiveMenu(elements);
 };
 
 // Initialize slider
@@ -484,12 +485,24 @@ const init = (): void => {
   if (elements.navLinks) {
     elements.navLinks.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => {
-        if (elements.navLinks.classList.contains('active-menu')) {
+        if (
+          elements.navLinks &&
+          elements.navLinks.classList.contains('active-menu')
+        ) {
           toggleMenu(elements);
         }
       });
     });
   }
+
+  // Window resize event listener
+  window.addEventListener('resize', () => {
+    updateImages(elements, getCurrentTheme(elements.body));
+    handleResponsiveMenu(elements);
+  });
+
+  // Initial call to handleResponsiveMenu
+  handleResponsiveMenu(elements);
 
   // Create ARIA live region for slide announcements
   const liveRegion = document.createElement('div');
@@ -497,11 +510,6 @@ const init = (): void => {
   liveRegion.className = 'sr-only';
   liveRegion.setAttribute('aria-live', 'polite');
   document.body.appendChild(liveRegion);
-
-  // Window resize event listener
-  window.addEventListener('resize', () => {
-    updateImages(elements, getCurrentTheme(elements.body));
-  });
 
   // Email copy functionality
   const copyEmailIcon = document.getElementById('copy-email-icon');
