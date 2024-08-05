@@ -808,12 +808,12 @@ nav a {
 }
 
 /* Footer Styles */
-footer {
+/* footer {
   margin-top: auto;
   padding: 1.5em 0 1.5em 0.5em;
   color: var(--fill);
   background: transparent;
-}
+} */
 
 /* ABOUT PAGE */
 
@@ -1317,7 +1317,7 @@ footer {
     margin-top: 0.5em;
     width: 50%;
     height: 100vh;
-    overflow-y: auto;
+    overflow-x: hidden;
     padding-left: 1em;
     scroll-behavior: smooth;
     display: flex;
@@ -1332,11 +1332,11 @@ footer {
     width: 20%;
   }
 
-  footer {
+  /* footer {
     position: fixed;
     bottom: 0;
     right: 0;
-  }
+  } */
 
   /* ABOUT PAGE */
 

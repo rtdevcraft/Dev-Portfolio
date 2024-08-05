@@ -293,7 +293,7 @@ const slideBackgrounds: SlideBackground[] = [
   { url: '/assets/images/slide1.jpg' },
   { url: '/assets/images/slide2.jpg' },
   { url: '/assets/images/slide3.jpg' },
-  { url: '/assets/images/fitflow.jpg' },
+  { url: '/assets/images/slide4.jpg' },
 ];
 
 const createSlider = (elements: CachedElements) => {
