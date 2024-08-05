@@ -1384,16 +1384,19 @@ nav a {
 
   .about__container {
     display: flex;
+    height: 100vh;
   }
 
   .about__hero-container {
     width: 30%;
+    height: 100%;
   }
 
   .about__info-container {
     width: 70%;
-    height: 100vh;
-    max-height: 100vh;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 1em;
   }
 
   .about__personal-container {
