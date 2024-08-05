@@ -18,6 +18,7 @@ interface ThemeConfig {
   copyEmailIcon: string;
   reactRouterLogoImages: string;
   githubLogoImages: string;
+  rtImage: string;
   moreAbout: string;
   interests: string;
   recs: string;
@@ -51,6 +52,7 @@ interface CachedElements {
   nextButton: HTMLButtonElement;
   reactRouterLogoImages: NodeListOf<HTMLImageElement>;
   githubLogoImages: NodeListOf<HTMLImageElement>;
+  rtImage: HTMLImageElement;
   moreAboutImage: HTMLImageElement;
   interestsImage: HTMLImageElement;
   recsImage: HTMLImageElement;
@@ -80,6 +82,7 @@ const themeConfig: ThemeConfigs = {
     copyEmailIcon: '/assets/images/copy-email.png',
     reactRouterLogoImages: '/assets/images/ReactRouterlogo.png',
     githubLogoImages: '/assets/images/Githublogo.png',
+    rtImage: '/assets/images/rt.png',
     moreAbout: '/assets/images/more-about.jpg',
     interests: '/assets/images/interests.jpg',
     recs: '/assets/images/recs.jpg',
@@ -102,6 +105,7 @@ const themeConfig: ThemeConfigs = {
     copyEmailIcon: '/assets/images/copy-email-dark.png',
     reactRouterLogoImages: '/assets/images/ReactRouterlogo-w.png',
     githubLogoImages: '/assets/images/Githublogo-w.png',
+    rtImage: '/assets/images/rt-dark.png',
     moreAbout: '/assets/images/more-about-dark.jpg',
     interests: '/assets/images/interests-dark.jpg',
     recs: '/assets/images/recs-dark.jpg',
@@ -154,6 +158,9 @@ const getCachedElements = (): CachedElements => ({
   githubLogoImages: document.querySelectorAll(
     '#toolbox .marquee__group img[src="/assets/images/Githublogo.png"]'
   ) as NodeListOf<HTMLImageElement>,
+  rtImage: document.querySelector(
+    '.about__hero img.me-image'
+  ) as HTMLImageElement,
   moreAboutImage: document.querySelector(
     '.about__more-about-me img[src="/assets/images/more-about.jpg"]'
   ) as HTMLImageElement,
@@ -213,6 +220,7 @@ const updateImages = (
       elements: elements.githubLogoImages,
       value: config.githubLogoImages,
     },
+    { element: elements.rtImage, prop: 'src', value: config.rtImage },
     { element: elements.moreAboutImage, prop: 'src', value: config.moreAbout },
     { element: elements.interestsImage, prop: 'src', value: config.interests },
     { element: elements.recsImage, prop: 'src', value: config.recs },
@@ -285,7 +293,7 @@ const slideBackgrounds: SlideBackground[] = [
   { url: '/assets/images/slide1.jpg' },
   { url: '/assets/images/slide2.jpg' },
   { url: '/assets/images/slide3.jpg' },
-  { url: 'https://mcdn.wallpapersafari.com/medium/18/88/gsAVlZ.jpg' },
+  { url: '/assets/images/fitflow.jpg' },
 ];
 
 const createSlider = (elements: CachedElements) => {
