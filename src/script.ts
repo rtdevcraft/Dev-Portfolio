@@ -159,7 +159,7 @@ const getCachedElements = (): CachedElements => ({
     '#toolbox .marquee__group img[src="/assets/images/Githublogo.png"]'
   ) as NodeListOf<HTMLImageElement>,
   rtImage: document.querySelector(
-    '.about__hero img.me-image'
+    '.about__hero-container .me-image'
   ) as HTMLImageElement,
   moreAboutImage: document.querySelector(
     '.about__more-about-me img[src="/assets/images/more-about.jpg"]'
@@ -277,7 +277,10 @@ const initTheme = (elements: CachedElements): void => {
   const prefersDarkScheme = window.matchMedia(
     '(prefers-color-scheme: dark)'
   ).matches;
+
+  // Use light theme as default unless dark theme is explicitly saved or preferred
   const theme = savedTheme || (prefersDarkScheme ? 'dark' : 'light');
+
   elements.body.classList.add(`${theme}-theme`);
   updateImages(elements, theme);
   document.querySelectorAll('.switch-theme').forEach((button) => {

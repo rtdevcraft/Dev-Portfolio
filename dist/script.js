@@ -70,7 +70,7 @@ const getCachedElements = () => ({
     nextButton: document.querySelector('.nav-arrow.next'),
     reactRouterLogoImages: document.querySelectorAll('#toolbox .marquee__group img[src="/assets/images/ReactRouterlogo.png"]'),
     githubLogoImages: document.querySelectorAll('#toolbox .marquee__group img[src="/assets/images/Githublogo.png"]'),
-    rtImage: document.querySelector('.about__hero img.me-image'),
+    rtImage: document.querySelector('.about__hero-container .me-image'),
     moreAboutImage: document.querySelector('.about__more-about-me img[src="/assets/images/more-about.jpg"]'),
     interestsImage: document.querySelector('.about__interests img[src="/assets/images/interests.jpg"]'),
     recsImage: document.querySelector('.about__recs img[src="/assets/images/recs.jpg"]'),
@@ -160,6 +160,7 @@ const toggleTheme = (elements) => {
 const initTheme = (elements) => {
     const savedTheme = localStorage.getItem('theme');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Use light theme as default unless dark theme is explicitly saved or preferred
     const theme = savedTheme || (prefersDarkScheme ? 'dark' : 'light');
     elements.body.classList.add(`${theme}-theme`);
     updateImages(elements, theme);
