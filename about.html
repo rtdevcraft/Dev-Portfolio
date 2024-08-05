@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#ffffff" />
     <meta
       name="description"
-      content="ABout Rachel Tschanz - Creative Frontend Developer Portfolio"
+      content="About Rachel Tschanz - Creative Frontend Developer Portfolio"
     />
     <title>About Rachel Tschanz - Creative Frontend Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <header>
       <div class="logo-container">
         <a href="/" aria-label="Home">
@@ -70,51 +72,48 @@
           </li>
           <li>
             <ul id="nav-links" class="nav-links">
-              <li>
-                <a class="glitch" href="/" data-text="HOME">HOME</a>
-              </li>
+              <li><a class="glitch" href="/" data-text="HOME">HOME</a></li>
               <li>
                 <a class="glitch" href="/about.html" data-text="ABOUT">ABOUT</a>
               </li>
-              <ul class="social-links">
-                <li>
-                  <a
-                    href="https://github.com/rtdevcraft"
-                    target="_blank"
-                    aria-label="GitHub profile"
-                    class="circle-glitch"
-                  >
-                    <img src="/assets/images/github.png" alt="Github Logo" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/in/rachel-tschanz/"
-                    aria-label="LinkedIn profile"
-                    class="square-glitch"
-                    target="_blank"
-                  >
-                    <img
-                      src="/assets/images/linkedin.png"
-                      alt="Linkedin logo"
-                    />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="mailto:hello@rtdevcraft.com"
-                    aria-label="Email"
-                    class="circle-glitch"
-                  >
-                    <img src="/assets/images/email.png" alt="Email icon" />
-                  </a>
-                </li>
-                <li>
-                  <a href="#" aria-label="Resume" class="square-glitch">
-                    <img src="/assets/images/resume.png" alt="Resume icon" />
-                  </a>
-                </li>
-              </ul>
+              <li>
+                <ul class="social-links">
+                  <li>
+                    <a
+                      href="https://github.com/rtdevcraft"
+                      target="_blank"
+                      aria-label="GitHub profile"
+                      class="circle-glitch"
+                    >
+                      <img src="/assets/images/github.png" alt="" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.linkedin.com/in/rachel-tschanz/"
+                      aria-label="LinkedIn profile"
+                      class="square-glitch"
+                      target="_blank"
+                    >
+                      <img src="/assets/images/linkedin.png" alt="" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="mailto:hello@rtdevcraft.com"
+                      aria-label="Email"
+                      class="circle-glitch"
+                    >
+                      <img src="/assets/images/email.png" alt="" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" aria-label="Resume" class="square-glitch">
+                      <img src="/assets/images/resume.png" alt="" />
+                    </a>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li>
@@ -142,26 +141,27 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <div class="about__container">
-        <div class="about__hero-container">
-          <section class="about__hero">
-            <img
-              class="me-image"
-              src="/assets/images/rt.png"
-              alt="Rachel Tschanz smiling portrait with pixel art"
-            />
-          </section>
-        </div>
+        <section class="about__hero-container">
+          <h1 class="visually-hidden">About Rachel Tschanz</h1>
+          <img
+            class="me-image"
+            src="/assets/images/rt.png"
+            alt="Rachel Tschanz smiling portrait with pixel art background"
+            loading="lazy"
+          />
+        </section>
 
         <div class="about__info-container">
           <section class="about__more-about-me">
+            <h2 class="visually-hidden">More About Me</h2>
             <img
               src="/assets/images/more-about.jpg"
-              alt="Stylized image of text saying more about"
+              alt=""
               class="about__header-image"
+              loading="lazy"
             />
-            <h2 class="visually-hidden">More About Me</h2>
             <p>
               Hi! I'm Rachel. I was born and raised in sunny Colorado. I am a
               fervent learner, life-long artist and curious cat. I am a natural
@@ -173,13 +173,15 @@
               wikipedia rabbit holes.
             </p>
           </section>
+
           <section class="about__interests">
+            <h2 class="visually-hidden">My Interests</h2>
             <img
               src="/assets/images/interests.jpg"
-              alt="Stylized image of text saying interests"
+              alt=""
               class="about__header-image"
+              loading="lazy"
             />
-            <h2 class="visually-hidden">My Interests</h2>
             <ul>
               <li>Animals - I have many</li>
               <li>Plants - also numerous</li>
@@ -189,88 +191,104 @@
               <li>Ways to make the world better than you found it</li>
             </ul>
           </section>
+
           <section class="about__recs">
+            <h2 class="visually-hidden">Recommendations</h2>
             <img
               src="/assets/images/recs.jpg"
-              alt="Stylized image of text saying recs"
+              alt=""
               class="about__header-image"
+              loading="lazy"
             />
-            <h2 class="visually-hidden">Recommendations</h2>
             <div class="about__rec-container">
-              <div class="about__rec">
+              <article class="about__rec">
                 <blockquote>
-                  "...Throughout her 6-year tenure as a designer at Madwire®,
-                  Rachel consistently produced excellent work and demonstrated a
-                  knack for creative problem solving. She was able to quickly
-                  learn new platforms and processes in our fast-paced
-                  environment while continuously delivering high-quality design
-                  work. Rachel is also a strong collaborator, and she always
-                  made a positive impact on our team culture through her
-                  constant support of her teammates."
-                  <br /><br />
-                  <cite>- Josh Felix, Lead Designer at Madwire®</cite>
+                  <p>
+                    "...Throughout her 6-year tenure as a designer at Madwire®,
+                    Rachel consistently produced excellent work and demonstrated
+                    a knack for creative problem solving. She was able to
+                    quickly learn new platforms and processes in our fast-paced
+                    environment while continuously delivering high-quality
+                    design work. Rachel is also a strong collaborator, and she
+                    always made a positive impact on our team culture through
+                    her constant support of her teammates."
+                  </p>
+                  <footer>- Josh Felix, Lead Designer at Madwire®</footer>
                 </blockquote>
-              </div>
-              <div class="about__rec">
+              </article>
+              <article class="about__rec">
                 <blockquote>
-                  "...Rachel... was a valuable addition to our team. She has a
-                  strong work ethic and experience working with a variety of
-                  clients and industries. She produced high quality designs
-                  across various disciplines...Rachel also has a vast knowledge
-                  of digital marketing best practices, user experience, unique
-                  website platforms and Adobe products. She adapted well to a
-                  constantly changing industry and always had a great attitude."
-                  <br /><br />
-                  <cite>
-                    - Brittany Jackson, Creative Director at Madwire®</cite
-                  >
+                  <p>
+                    "...Rachel... was a valuable addition to our team. She has a
+                    strong work ethic and experience working with a variety of
+                    clients and industries. She produced high quality designs
+                    across various disciplines...Rachel also has a vast
+                    knowledge of digital marketing best practices, user
+                    experience, unique website platforms and Adobe products. She
+                    adapted well to a constantly changing industry and always
+                    had a great attitude."
+                  </p>
+                  <footer>
+                    - Brittany Jackson, Creative Director at Madwire®
+                  </footer>
                 </blockquote>
-              </div>
+              </article>
             </div>
           </section>
+
           <section class="about__certs">
+            <h2 class="visually-hidden">Certifications</h2>
             <img
               src="/assets/images/certs.jpg"
-              alt="Stylized image of text saying certs"
+              alt=""
               class="about__header-image"
+              loading="lazy"
             />
-            <h2 class="visually-hidden">Certifications</h2>
             <div class="about__certs-container">
-              <div class="about__cert-1">
-                <a
-                  href="https://v2.scrimba.com/home"
-                  target="_blank"
-                  class="about__a-glitch"
-                  data-text="Scrimba's Frontend Developer Career Path certificate"
-                >
-                  Scrimba's Frontend Developer Career Path certificate</a
-                >
+              <article class="about__cert-1">
+                <h3>
+                  <a
+                    href="https://v2.scrimba.com/home"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="about__a-glitch"
+                    data-text="Scrimba's Frontend Developer Career Path certificate"
+                  >
+                    Scrimba's Frontend Developer Career Path certificate
+                  </a>
+                </h3>
                 <img
                   src="/assets/images/scrimba.jpg"
                   alt="Scrimba Frontend Developer certificate presented to Rachel Tschanz"
                   class="about__img-scrimba"
+                  loading="lazy"
                 />
-              </div>
-              <div class="about__cert-2">
-                <a
-                  href="https://grow.google/certificates/ux-design/"
-                  target="_blank"
-                  class="about__a-glitch"
-                  data-text="Google's UX Design certificate"
-                >
-                  Google's UX Design certificate</a
-                >
+              </article>
+              <article class="about__cert-2">
+                <h3>
+                  <a
+                    href="https://grow.google/certificates/ux-design/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="about__a-glitch"
+                    data-text="Google's UX Design certificate"
+                  >
+                    Google's UX Design certificate
+                  </a>
+                </h3>
                 <img
                   src="/assets/images/google.jpg"
                   alt="Google UX Design certificate presented to Rachel Tschanz"
                   class="about__img-google"
+                  loading="lazy"
                 />
-              </div>
+              </article>
             </div>
           </section>
         </div>
       </div>
     </main>
+
     <footer>
       <p>&copy; 2024 Rachel Tschanz. All rights reserved.</p>
     </footer>
