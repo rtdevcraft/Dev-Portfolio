@@ -212,12 +212,26 @@ const createSlider = (elements) => {
     };
     return { showSlide, nextSlide, prevSlide, handleKeyboardNavigation };
 };
+const handleResponsiveMenu = () => {
+    const navLinks = document.getElementById('nav-links');
+    const hamburgerIcon = document.querySelector('.hamburger-icon');
+    if (window.innerWidth >= 1000 && navLinks.classList.contains('active-menu')) {
+        navLinks.classList.remove('active-menu');
+        hamburgerIcon.classList.remove('active-icon');
+    }
+};
+// Add event listener for window resize
+window.addEventListener('resize', handleResponsiveMenu);
+// Call the function initially to set the correct state
+handleResponsiveMenu();
 // Menu toggle function
 const toggleMenu = (elements) => {
     elements.navLinks.classList.toggle('active-menu');
     elements.hamburgerIcon.classList.toggle('active-icon');
     const isExpanded = elements.navLinks.classList.contains('active-menu');
     elements.hamburgerButton.setAttribute('aria-expanded', isExpanded.toString());
+    // Close menu if window is larger than 1000px
+    handleResponsiveMenu();
 };
 // Initialize slider
 const initSlider = (elements) => {

@@ -38,7 +38,7 @@ body.dark-theme {
 
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: -50px;
   left: 0;
   background: #000;
   color: white;
@@ -83,6 +83,7 @@ header {
   background: 0;
   border: 0;
   transition: transform 400ms;
+  display: flex;
 }
 
 .line {
@@ -120,6 +121,12 @@ header {
   border: 0;
 }
 
+.nav-items > li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .nav-links {
   display: none;
   flex-direction: column;
@@ -131,7 +138,7 @@ header {
 .nav-links.active-menu {
   display: flex;
   width: 100%;
-  background-color: #333333;
+  background-color: var(--background);
   border-radius: 5px;
   padding: 1em;
 }
@@ -144,6 +151,8 @@ header {
 .nav-links .social-links {
   margin-top: 3em;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 4em;
 }
 
