@@ -66,10 +66,10 @@ interface SlideBackground {
 // Theme configuration
 const themeConfig: ThemeConfigs = {
   light: {
-    headerBg: '/assets/images/header-bg-light.jpg',
+    headerBg: '/assets/images/header-bg-light.webp',
     hero: {
-      small: '/assets/images/spot-light-sm.jpg',
-      large: '/assets/images/spot-light-lg.jpg',
+      small: '/assets/images/spot-light-sm.webp',
+      large: '/assets/images/spot-light-lg.webp',
     },
     github: '/assets/images/github.png',
     linkedin: '/assets/images/linkedin.png',
@@ -89,10 +89,10 @@ const themeConfig: ThemeConfigs = {
     certs: '/assets/images/certs.jpg',
   },
   dark: {
-    headerBg: '/assets/images/header-bg.jpg',
+    headerBg: '/assets/images/header-bg.webp',
     hero: {
-      small: '/assets/images/spot-dark-sm.jpg',
-      large: '/assets/images/spot-dark-lg.jpg',
+      small: '/assets/images/spot-dark-sm.webp',
+      large: '/assets/images/spot-dark-lg.webp',
     },
     github: '/assets/images/github-dark.png',
     linkedin: '/assets/images/linkedin-dark.png',

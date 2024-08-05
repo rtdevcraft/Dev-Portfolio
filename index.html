@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
       <div class="logo-container">
         <a href="/" aria-label="Home">
@@ -142,7 +143,7 @@
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <div class="container">
         <div class="hero-container">
           <section class="hero">
@@ -178,7 +179,7 @@
               class="header-image"
             />
             <h2 class="visually-hidden">My Toolbox</h2>
-            <div class="toolbox__marquee">
+            <div class="toolbox__marquee" aria-label="Skills and Tools">
               <div class="marquee__group">
                 <ul>
                   <li>
@@ -433,7 +434,7 @@
           <section id="work" class="work">
             <img src="/assets/images/work.jpg" alt="" class="header-image" />
             <h2 class="visually-hidden">My Work</h2>
-            <div class="slider-container">
+            <div class="slider-container" aria-label="Project Slider">
               <div
                 id="slide-announcement"
                 class="sr-only"
@@ -799,6 +800,7 @@
                   src="/assets/images/copy-email.png"
                   id="copy-email-icon"
                   alt="Copy email"
+                  aria-label="Copy email to clipboard"
                 />
               </p>
             </div>
