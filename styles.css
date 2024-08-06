@@ -485,6 +485,11 @@ nav a {
   border: none;
   cursor: pointer;
   z-index: 10;
+  transition: transform 0.5s ease;
+}
+
+.nav-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
 }
 
 .nav-arrow.prev {
@@ -671,6 +676,7 @@ nav a {
   left: 0;
   width: 80%;
   text-align: center;
+  padding: 0.2em;
 }
 
 .slide4__icons {
@@ -698,6 +704,7 @@ nav a {
 
 .slide__content p {
   color: #fff;
+  padding: 0.3em;
 }
 
 .slide .slide__content {
@@ -1524,6 +1531,10 @@ nav a {
 @media screen and (min-width: 2000px) {
   .hero__image {
     width: 93%;
+  }
+
+  .intro p {
+    width: 75%;
   }
 }
 
