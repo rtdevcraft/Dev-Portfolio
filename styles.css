@@ -1533,8 +1533,12 @@ nav a {
     width: 93%;
   }
 
-  .intro p {
-    width: 75%;
+  .slide__desc {
+    width: 60%;
+  }
+
+  .slide4__desc {
+    width: 60%;
   }
 }
 
