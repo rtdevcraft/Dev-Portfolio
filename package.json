@@ -1,9 +1,10 @@
 {
   "name": "dev-portfolio",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "format": "prettier --write .",
     "build": "tsc"
   },
@@ -12,8 +13,11 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "jsdom": "^24.1.1",
     "prettier": "^3.3.2",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   },
   "dependencies": {
     "jquery": "^3.7.1"
