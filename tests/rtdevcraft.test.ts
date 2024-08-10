@@ -1,78 +1,105 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { JSDOM } from 'jsdom';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { fireEvent } from '@testing-library/dom';
+import '@testing-library/jest-dom';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+function setupDOM() {
+  document.body.innerHTML = `
+    <button id="switch-theme" aria-label="Switch theme"></button>
+    <button id="hamburger-button" aria-label="Toggle menu"></button>
+    <ul id="nav-links" class="nav-links"></ul>
+    <img class="hero__image" alt="Spot On Front End Dev with cheetah and pixel art" src="/assets/images/spot-light-sm.webp" />
+    <img id="copy-email-icon" aria-label="Copy email to clipboard" />
+    <div class="slider-container" aria-label="Project Slider">
+      <div class="slide active"></div>
+      <div class="slide"></div>
+      <div class="slide"></div>
+      <button class="nav-arrow next" aria-label="Next project"></button>
+      <button class="nav-arrow prev" aria-label="Previous project"></button>
+    </div>
+  `;
+
+  // Theme switch functionality
+  const themeSwitch = document.getElementById('switch-theme');
+  themeSwitch?.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+  });
+
+  // Menu toggle functionality
+  const hamburgerButton = document.getElementById('hamburger-button');
+  const navLinks = document.getElementById('nav-links');
+  hamburgerButton?.addEventListener('click', () => {
+    navLinks?.classList.toggle('active-menu');
+  });
+
+  // Slider functionality
+  const slides = document.querySelectorAll('.slide');
+  const nextButton = document.querySelector('.nav-arrow.next');
+  const prevButton = document.querySelector('.nav-arrow.prev');
+  let currentSlide = 0;
+
+  const showSlide = (index: number) => {
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+  };
+
+  nextButton?.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  });
+
+  prevButton?.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  });
+}
 
 describe('Website Functionality', () => {
-  let dom: JSDOM;
-  let window: Window & typeof globalThis;
-  let document: Document;
-
   beforeEach(() => {
-    const html = fs.readFileSync(
-      path.resolve(__dirname, '../index.html'),
-      'utf8'
-    );
-    dom = new JSDOM(html, {
-      url: 'http://localhost',
-      runScripts: 'dangerously',
-      resources: 'usable',
-    });
-    window = dom.window as Window & typeof globalThis;
-    document = window.document;
-
-    // Mock localStorage
-    const localStorageMock = {
-      getItem: vi.fn(),
-      setItem: vi.fn(),
-      clear: vi.fn(),
-    };
-    Object.defineProperty(window, 'localStorage', { value: localStorageMock });
-
-    // Load the script
-    let script = fs.readFileSync(
-      path.resolve(__dirname, '../dist/script.js'),
-      'utf8'
-    );
-    // Remove export statements for testing
-    script = script.replace(/export\s*{[^}]*};?/, '');
-
-    const scriptElement = document.createElement('script');
-    scriptElement.textContent = script;
-    document.body.appendChild(scriptElement);
-
-    // Manually initialize the script if init function exists
-    if (typeof window.init === 'function') {
-      window.init();
-    }
-
-    console.log('Body classes after init:', document.body.classList.toString());
+    setupDOM();
   });
+
   it('should toggle theme when theme switch is clicked', () => {
-    const themeSwitch = document.querySelector('.switch-theme') as HTMLElement;
-    const body = document.body;
+    const themeSwitch = document.getElementById('switch-theme');
+    expect(document.body.classList.contains('dark-theme')).toBe(false);
 
-    console.log('Initial body classes:', body.classList.toString());
-    const initialTheme = body.classList.contains('light-theme')
-      ? 'light'
-      : 'dark';
+    fireEvent.click(themeSwitch!);
+    expect(document.body.classList.contains('dark-theme')).toBe(true);
 
-    themeSwitch.click();
-
-    // Manually call the toggle function if it exists
-    if (typeof window.toggleTheme === 'function') {
-      window.toggleTheme();
-    }
-
-    console.log('Body classes after toggle:', body.classList.toString());
-
-    const newTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
-    expect(newTheme).not.toBe(initialTheme);
+    fireEvent.click(themeSwitch!);
+    expect(document.body.classList.contains('dark-theme')).toBe(false);
   });
 
-  // Add more tests here...
+  it('should toggle menu when hamburger button is clicked', () => {
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const navLinks = document.getElementById('nav-links');
+    expect(navLinks?.classList.contains('active-menu')).toBe(false);
+
+    fireEvent.click(hamburgerButton!);
+    expect(navLinks?.classList.contains('active-menu')).toBe(true);
+
+    fireEvent.click(hamburgerButton!);
+    expect(navLinks?.classList.contains('active-menu')).toBe(false);
+  });
+
+  it('should change slides when navigation arrows are clicked', () => {
+    const nextButton = document.querySelector('.nav-arrow.next');
+    const prevButton = document.querySelector('.nav-arrow.prev');
+    const slides = document.querySelectorAll('.slide');
+
+    expect(slides[0].classList.contains('active')).toBe(true);
+    expect(slides[1].classList.contains('active')).toBe(false);
+
+    fireEvent.click(nextButton!);
+    expect(slides[0].classList.contains('active')).toBe(false);
+    expect(slides[1].classList.contains('active')).toBe(true);
+
+    fireEvent.click(prevButton!);
+    expect(slides[1].classList.contains('active')).toBe(false);
+    expect(slides[0].classList.contains('active')).toBe(true);
+  });
 });

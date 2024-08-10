@@ -242,7 +242,7 @@ const updateImages = (
       const { elements, value } = mapping;
 
       if (elements instanceof NodeList) {
-        elements.forEach((el, _index) => {
+        elements.forEach((el) => {
           if (el instanceof HTMLImageElement) {
             el.src = value;
           }
