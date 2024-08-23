@@ -10,7 +10,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": false,
+    "noEmit": true,
     "sourceMap": true,
     "outDir": "./dist",
 
@@ -29,5 +29,5 @@
     /* ESM Support */
     "esModuleInterop": true
   },
-  "include": ["src/**/*", "tests/**/*", "src/script.ts"]
+  "include": ["src/**/*", "tests/**/*", "src/main.ts"]
 }
