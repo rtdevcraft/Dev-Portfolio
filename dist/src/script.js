@@ -68,14 +68,155 @@ const getCachedElements = () => ({
     slides: document.querySelectorAll('.slide'),
     prevButton: document.querySelector('.nav-arrow.prev'),
     nextButton: document.querySelector('.nav-arrow.next'),
-    reactRouterLogoImages: document.querySelectorAll('#toolbox .marquee__group img[src="/assets/images/ReactRouterlogo.png"]'),
-    githubLogoImages: document.querySelectorAll('#toolbox .marquee__group img[src="/assets/images/Githublogo.png"]'),
+    reactRouterLogoImages: document.querySelector('#toolbox .marquee__group img[src="/assets/images/ReactRouterlogo.png"]'),
+    githubLogoImages: document.querySelector('#toolbox .marquee__group img[src="/assets/images/Githublogo.png"]'),
     rtImage: document.querySelector('.about__hero-container .me-image'),
     moreAboutImage: document.querySelector('.about__more-about-me img[src="/assets/images/more-about.jpg"]'),
     interestsImage: document.querySelector('.about__interests img[src="/assets/images/interests.jpg"]'),
     recsImage: document.querySelector('.about__recs img[src="/assets/images/recs.jpg"]'),
     certsImage: document.querySelector('.about__certs img[src="/assets/images/certs.jpg"]'),
 });
+const toolboxItems = [
+    { name: 'HTML', image: '/assets/images/HTMLlogo.png', alt: 'HTML logo' },
+    { name: 'CSS', image: '/assets/images/CSSlogo.png', alt: 'CSS logo' },
+    {
+        name: 'Javascript',
+        image: '/assets/images/JSlogo.png',
+        alt: 'Javascript logo',
+    },
+    {
+        name: 'Typescript',
+        image: '/assets/images/TSlogo.png',
+        alt: 'Typescript logo',
+    },
+    { name: 'React', image: '/assets/images/Reactlogo.png', alt: 'React logo' },
+    {
+        name: 'Tailwind CSS',
+        image: '/assets/images/Tailwindlogo.png',
+        alt: 'Tailwind CSS',
+    },
+    {
+        name: 'Bootstrap',
+        image: '/assets/images/Bootstraplogo.png',
+        alt: 'Bootstrap logo',
+    },
+    {
+        name: 'React Router',
+        image: '/assets/images/ReactRouterlogo.png',
+        darkImage: '/assets/images/ReactRouterlogo-w.png',
+        alt: 'React Router logo',
+    },
+    {
+        name: 'Adobe CC',
+        image: '/assets/images/CClogo.png',
+        alt: 'Adobe Creative Cloud logo',
+    },
+    { name: 'Figma', image: '/assets/images/Figmalogo.png', alt: 'Figma logo' },
+    { name: 'Canva', image: '/assets/images/Canvalogo.png', alt: 'Canva logo' },
+    {
+        name: 'GreenSock',
+        image: '/assets/images/GSlogo.png',
+        alt: 'GreenSock logo',
+    },
+    {
+        name: 'Firebase',
+        image: '/assets/images/Firebaselogo.png',
+        alt: 'Firebase logo',
+    },
+    { name: 'Vite', image: '/assets/images/Vitelogo.png', alt: 'Vite logo' },
+    {
+        name: 'Node.js',
+        image: '/assets/images/Nodelogo.png',
+        alt: 'Node.js logo',
+    },
+    {
+        name: 'MongoDB Atlas',
+        image: '/assets/images/MongoDBlogo.png',
+        alt: 'MongoDB Atlas logo',
+    },
+    {
+        name: 'Postman',
+        image: '/assets/images/Postmanlogo.png',
+        alt: 'Postman logo',
+    },
+    { name: 'NoSQL', image: '/assets/images/NoSQLlogo.png', alt: 'NoSQL logo' },
+    {
+        name: 'Express',
+        image: '/assets/images/Expresslogo.png',
+        alt: 'Express logo',
+    },
+    {
+        name: 'Github',
+        image: '/assets/images/Githublogo.png',
+        darkImage: '/assets/images/Githublogo-w.png',
+        alt: 'Github logo',
+    },
+    {
+        name: 'Netlify',
+        image: '/assets/images/Netlifylogo.png',
+        alt: 'Netlify logo',
+    },
+    {
+        name: 'Wordpress',
+        image: '/assets/images/Wordpresslogo.png',
+        alt: 'Wordpress logo',
+    },
+    { name: 'npm', image: '/assets/images/npmlogo.png', alt: 'npm logo' },
+    {
+        name: 'ChatGPT',
+        image: '/assets/images/ChatGPTlogo.png',
+        alt: 'ChatGPT logo',
+    },
+    {
+        name: 'ClaudeAI',
+        image: '/assets/images/ClaudeAI.png',
+        alt: 'ClaudeAI logo',
+    },
+];
+function createToolboxItems(isDarkTheme) {
+    const itemsHTML = toolboxItems
+        .map((item) => `
+      <li>
+        <img 
+          src="${isDarkTheme && item.darkImage ? item.darkImage : item.image}" 
+          alt="${item.alt}"
+          data-light-src="${item.image}"
+          ${item.darkImage ? `data-dark-src="${item.darkImage}"` : ''}
+        />
+        <h3>${item.name}</h3>
+      </li>
+    `)
+        .join('');
+    return `<ul>${itemsHTML}</ul>`;
+}
+function populateToolbox() {
+    const marqueeGroups = document.querySelectorAll('.marquee__group');
+    const isDarkTheme = document.body.classList.contains('dark-theme');
+    const toolboxContent = createToolboxItems(isDarkTheme);
+    marqueeGroups.forEach((group) => {
+        if (group instanceof HTMLElement) {
+            group.innerHTML = toolboxContent;
+        }
+    });
+}
+function updateToolboxImages(isDarkTheme) {
+    const toolboxImages = document.querySelectorAll('.marquee__group img');
+    toolboxImages.forEach((img) => {
+        const lightSrc = img.dataset.lightSrc;
+        const darkSrc = img.dataset.darkSrc;
+        if (isDarkTheme && darkSrc) {
+            img.src = darkSrc;
+        }
+        else if (lightSrc) {
+            img.src = lightSrc;
+        }
+    });
+}
+// Call this function when the theme changes
+function handleThemeChange() {
+    const isDarkTheme = document.body.classList.contains('dark-theme');
+    updateToolboxImages(isDarkTheme);
+}
 // Helper functions
 const isLargeScreen = () => window.matchMedia('(min-width: 1000px)').matches;
 const getCurrentTheme = (body) => body.classList.contains('light-theme') ? 'light' : 'dark';
@@ -107,12 +248,14 @@ const updateImages = (elements, theme) => {
             value: config.copyEmailIcon,
         },
         {
-            elements: elements.reactRouterLogoImages,
-            value: config.reactRouterLogoImages,
+            element: elements.githubLogoImages,
+            prop: 'src',
+            value: config.githubLogoImages,
         },
         {
-            elements: elements.githubLogoImages,
-            value: config.githubLogoImages,
+            element: elements.reactRouterLogoImages,
+            prop: 'src',
+            value: config.reactRouterLogoImages,
         },
         { element: elements.rtImage, prop: 'src', value: config.rtImage },
         { element: elements.moreAboutImage, prop: 'src', value: config.moreAbout },
@@ -120,27 +263,12 @@ const updateImages = (elements, theme) => {
         { element: elements.recsImage, prop: 'src', value: config.recs },
         { element: elements.certsImage, prop: 'src', value: config.certs },
     ];
-    imageMappings.forEach((mapping) => {
-        if ('element' in mapping) {
-            const { element, prop, value } = mapping;
-            if (element) {
-                if (prop === 'backgroundImage') {
-                    element.style.backgroundImage = value;
-                }
-                else if (prop === 'src') {
-                    element.src = value;
-                }
-            }
+    imageMappings.forEach(({ element, prop, value }) => {
+        if (element instanceof HTMLElement && prop === 'backgroundImage') {
+            element.style.backgroundImage = value;
         }
-        else if ('elements' in mapping) {
-            const { elements, value } = mapping;
-            if (elements instanceof NodeList) {
-                elements.forEach((el, index) => {
-                    if (el instanceof HTMLImageElement) {
-                        el.src = value;
-                    }
-                });
-            }
+        else if (element instanceof HTMLImageElement && prop === 'src') {
+            element.src = value;
         }
     });
 };
@@ -151,6 +279,7 @@ const toggleTheme = (elements) => {
     elements.body.classList.remove('light-theme', 'dark-theme');
     elements.body.classList.add(`${newTheme}-theme`);
     updateImages(elements, newTheme);
+    handleThemeChange();
     localStorage.setItem('theme', newTheme);
     document.querySelectorAll('.switch-theme').forEach((button) => {
         button.setAttribute('aria-label', `Switch to ${newTheme === 'light' ? 'dark' : 'light'} theme`);
@@ -306,6 +435,7 @@ const init = () => {
     if (document.querySelector('.slider-container')) {
         initSlider(elements);
     }
+    populateToolbox();
     // Event listeners
     document.querySelectorAll('.switch-theme').forEach((button) => {
         button.addEventListener('click', () => toggleTheme(elements));
@@ -376,3 +506,4 @@ const init = () => {
 // Run initialization when DOM is fully loaded
 document.addEventListener('DOMContentLoaded', init);
 export {};
+//# sourceMappingURL=script.js.map
