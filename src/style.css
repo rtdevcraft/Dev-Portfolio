@@ -689,12 +689,16 @@ nav a {
   height: 30px;
 }
 
-.slide4__desc {
+.slide__desc {
   position: absolute;
   bottom: 0.5em;
+  left: 0;
   right: 0;
-  width: 80%;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
+  padding: 0.2em;
 }
 
 .slide__content h3 {
@@ -712,6 +716,14 @@ nav a {
 
 .slide.active .slide__content {
   display: flex;
+}
+
+.slide.last-slide .slide__content {
+  flex-direction: row;
+}
+
+.slide.last-slide .slide__desc {
+  margin-left: 2.5em;
 }
 
 /* Email me section styles */
@@ -1194,6 +1206,12 @@ nav a {
   .active {
     border-radius: 5px;
   }
+  .slide__desc {
+    width: 60%;
+  }
+  .slide.last-slide .slide__desc {
+    margin-left: auto;
+  }
 }
 
 @media screen and (min-width: 1000px) {
@@ -1548,5 +1566,9 @@ nav a {
 
   .info-container {
     height: auto;
+  }
+
+  .slide__desc {
+    width: 50%;
   }
 }

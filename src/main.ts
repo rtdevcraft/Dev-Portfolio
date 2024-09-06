@@ -77,7 +77,9 @@ import npmLogo from './assets/images/npmlogo.png';
 import chatGPTLogo from './assets/images/ChatGPTlogo.png';
 import claudeAILogo from './assets/images/ClaudeAI.png';
 
-// Slide backgrounds
+// Slides
+import linkIcon from './assets/images/link-icon.jpg';
+import githubIcon from './assets/images/github.png';
 import slide1 from './assets/images/slide1.jpg';
 import slide2 from './assets/images/slide2.jpg';
 import slide3 from './assets/images/slide3.jpg';
@@ -130,7 +132,6 @@ interface CachedElements {
   workImage: HTMLImageElement;
   emailMeImage: HTMLImageElement;
   copyEmailIcon: HTMLImageElement;
-  slides: NodeListOf<HTMLElement>;
   prevButton: HTMLButtonElement;
   nextButton: HTMLButtonElement;
   reactRouterLogoImages: HTMLImageElement;
@@ -155,17 +156,12 @@ interface ImageMapping {
   value: string;
 }
 
-interface SlideIcon {
-  src: string;
-  alt: string;
-}
-
 interface SlideData {
   backgroundUrl: string;
-  icons: SlideIcon[];
+  icons: { src: string; alt: string }[];
   title: string;
   description: string;
-  technologiesUsed: string;
+  technologiesUsed?: string;
   liveLink?: string;
   githubLink?: string;
 }
@@ -256,9 +252,8 @@ const getCachedElements = (): CachedElements => ({
   copyEmailIcon: document.querySelector(
     '#email-me img[src*="copy-email"]'
   ) as HTMLImageElement,
-  slides: document.querySelectorAll('.slide') as NodeListOf<HTMLElement>,
-  prevButton: document.querySelector('.nav-arrow.prev') as HTMLButtonElement,
   nextButton: document.querySelector('.nav-arrow.next') as HTMLButtonElement,
+  prevButton: document.querySelector('.nav-arrow.prev') as HTMLButtonElement,
   reactRouterLogoImages: document.querySelector(
     '#toolbox .marquee__group img[src="./assets/images/ReactRouterlogo.png"]'
   ) as HTMLImageElement,
@@ -563,85 +558,85 @@ const slideData: SlideData[] = [
   },
 ];
 
-const createSlider = (elements: CachedElements) => {
+const createSlideElement = (
+  data: SlideData,
+  index: number,
+  totalSlides: number
+): HTMLElement => {
+  const slide = document.createElement('div');
+  const isLastSlide = index === totalSlides - 1;
+  slide.className = `slide ${index === 0 ? 'active' : ''} ${isLastSlide ? 'last-slide' : ''}`;
+  slide.style.backgroundImage = `url('${data.backgroundUrl}')`;
+
+  slide.innerHTML = `
+    <div class="slide__content">
+      <div class="slide__icons">
+        ${data.icons.map((icon) => `<img src="${icon.src}" alt="${icon.alt}" />`).join('')}
+      </div>
+      ${
+        data.liveLink || data.githubLink
+          ? `
+        <div class="slide__links">
+          ${
+            data.liveLink
+              ? `
+            <div class="slide__link">
+              <a href="${data.liveLink}" target="_blank" aria-label="View live project">
+                <img src="${linkIcon}" alt="Icon of a cloud and arrow" />
+              </a>
+            </div>
+          `
+              : ''
+          }
+          ${
+            data.githubLink
+              ? `
+            <div class="slide__link">
+              <a href="${data.githubLink}" target="_blank" aria-label="View project on GitHub">
+                <img src="${githubIcon}" alt="Github logo" />
+              </a>
+            </div>
+          `
+              : ''
+          }
+        </div>
+      `
+          : ''
+      }
+      <div class="slide__desc">
+        <h3>${data.title}</h3>
+        <p>${data.description}</p>
+        ${data.technologiesUsed ? `<p>${data.technologiesUsed}</p>` : ''}
+      </div>
+    </div>
+  `;
+
+  return slide;
+};
+
+const createSlider = (slides: NodeListOf<HTMLElement>) => {
   let currentIndex = 0;
 
   const showSlide = (index: number): void => {
-    elements.slides.forEach((slide, i) => {
-      const content = slide.querySelector('.slide__content') as HTMLElement;
-      const isActive = i === index;
-      slide.classList.toggle('active', isActive);
-      slide.classList.toggle('nonActive', !isActive);
-
-      if (content) {
-        content.style.display = isActive ? 'flex' : 'none';
-
-        if (isActive) {
-          const currentSlideData = slideData[i];
-          slide.style.backgroundImage = `url('${currentSlideData.backgroundUrl}')`;
-
-          // Update icons
-          const iconsContainer = content.querySelector('.slide__icons');
-          if (iconsContainer) {
-            iconsContainer.innerHTML = currentSlideData.icons
-              .map((icon) => `<img src="${icon.src}" alt="${icon.alt}" />`)
-              .join('');
-          }
-
-          // Update title and description
-          const titleElement = content.querySelector('h3');
-          const descElements = content.querySelectorAll('p');
-          if (titleElement) titleElement.textContent = currentSlideData.title;
-          if (descElements[0])
-            descElements[0].textContent = currentSlideData.description;
-          if (descElements[1] && currentSlideData.technologiesUsed) {
-            descElements[1].textContent = currentSlideData.technologiesUsed;
-          }
-
-          // Update links
-          const linkContainer = content.querySelector('.slide__links');
-          if (linkContainer) {
-            linkContainer.innerHTML = '';
-            if (currentSlideData.liveLink) {
-              linkContainer.innerHTML += `
-                <div class="slide__link">
-                  <a href="${currentSlideData.liveLink}" target="_blank" aria-label="View live project">
-                    <img src="/src/assets/images/link-icon.jpg" alt="Icon of a cloud and arrow" />
-                  </a>
-                </div>
-              `;
-            }
-            if (currentSlideData.githubLink) {
-              linkContainer.innerHTML += `
-                <div class="slide__link">
-                  <a href="${currentSlideData.githubLink}" target="_blank" aria-label="View project on GitHub">
-                    <img src="/src/assets/images/github.png" alt="Github logo" />
-                  </a>
-                </div>
-              `;
-            }
-          }
-        }
-      }
-
-      slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-      slide.setAttribute('tabindex', isActive ? '0' : '-1');
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+      slide.classList.toggle('nonActive', i !== index);
+      slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
     });
 
     const slideAnnouncement = document.getElementById('slide-announcement');
     if (slideAnnouncement) {
-      slideAnnouncement.textContent = `Showing slide ${index + 1} of ${elements.slides.length}`;
+      slideAnnouncement.textContent = `Showing slide ${index + 1} of ${slides.length}`;
     }
   };
 
   const nextSlide = (): void => {
-    currentIndex = (currentIndex + 1) % elements.slides.length;
+    currentIndex = (currentIndex + 1) % slides.length;
     showSlide(currentIndex);
   };
 
   const prevSlide = (): void => {
-    currentIndex =
-      (currentIndex - 1 + elements.slides.length) % elements.slides.length;
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
     showSlide(currentIndex);
   };
 
@@ -685,24 +680,32 @@ const toggleMenu = (elements: CachedElements): void => {
 
 // Initialize slider
 const initSlider = (elements: CachedElements): void => {
-  console.log('Number of slides found:', elements.slides.length); // Debugging line
+  const sliderElement = document.querySelector('.slider') as HTMLElement;
 
-  if (elements.slides.length > 0) {
-    console.log('Slides found, initializing slider');
+  if (sliderElement && slideData.length > 0) {
+    // Generate slides
+    slideData.forEach((data, index) => {
+      const slide = createSlideElement(data, index, slideData.length);
+      sliderElement.appendChild(slide);
+    });
+
+    // Select the newly created slides
+    const slides = sliderElement.querySelectorAll(
+      '.slide'
+    ) as NodeListOf<HTMLElement>;
+
     const { showSlide, nextSlide, prevSlide, handleKeyboardNavigation } =
-      createSlider(elements);
+      createSlider(slides);
 
     showSlide(0); // Show the first slide initially
 
     if (elements.nextButton) {
-      console.log('Next button found, adding event listener');
       elements.nextButton.addEventListener('click', nextSlide);
     } else {
       console.warn('Next button not found');
     }
 
     if (elements.prevButton) {
-      console.log('Previous button found, adding event listener');
       elements.prevButton.addEventListener('click', prevSlide);
     } else {
       console.warn('Previous button not found');
@@ -710,7 +713,6 @@ const initSlider = (elements: CachedElements): void => {
 
     const sliderContainer = document.querySelector('.slider-container');
     if (sliderContainer) {
-      console.log('Slider container found, adding keyboard navigation');
       sliderContainer.addEventListener('keydown', (event: Event) => {
         handleKeyboardNavigation(event as KeyboardEvent);
       });
@@ -718,7 +720,7 @@ const initSlider = (elements: CachedElements): void => {
       console.warn('Slider container not found');
     }
   } else {
-    console.warn('No slides found');
+    console.warn('Slider element or slide data not found');
   }
 };
 
