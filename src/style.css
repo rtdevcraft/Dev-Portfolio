@@ -63,7 +63,6 @@ body {
 
 /* Header Styles */
 header {
-  background-image: url('./src/assets/images/header-bg-light.webp');
   padding-bottom: 1em;
 }
 
@@ -852,7 +851,7 @@ nav a {
 }
 
 .about__header-image {
-  margin: 0.5em 0;
+  margin: 1em 0;
 }
 
 .about__rec {

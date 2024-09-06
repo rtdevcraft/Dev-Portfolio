@@ -1,5 +1,88 @@
 export {};
 
+// Header backgrounds
+import headerBgLight from './assets/images/header-bg-light.webp';
+import headerBgDark from './assets/images/header-bg.webp';
+
+// Hero images
+import spotLightSm from './assets/images/spot-light-sm.webp';
+import spotLightLg from './assets/images/spot-light-lg.webp';
+import spotDarkSm from './assets/images/spot-dark-sm.webp';
+import spotDarkLg from './assets/images/spot-dark-lg.webp';
+
+// Social icons
+import githubLight from './assets/images/github.png';
+import githubDark from './assets/images/github-dark.png';
+import linkedinLight from './assets/images/linkedin.png';
+import linkedinDark from './assets/images/linkedin-dark.png';
+import emailLight from './assets/images/email.png';
+import emailDark from './assets/images/email-dark.png';
+import resumeLight from './assets/images/resume.png';
+import resumeDark from './assets/images/resume-dark.png';
+
+// Section images
+import introLight from './assets/images/heylo.jpg';
+import introDark from './assets/images/heylo-dark.jpg';
+import toolboxLight from './assets/images/toolbox.jpg';
+import toolboxDark from './assets/images/toolbox-dark.jpg';
+import workLight from './assets/images/work.jpg';
+import workDark from './assets/images/work-dark.jpg';
+import emailMeLight from './assets/images/email-me.jpg';
+import emailMeDark from './assets/images/email-me-dark.jpg';
+
+// Copy email icon
+import copyEmailLight from './assets/images/copy-email.png';
+import copyEmailDark from './assets/images/copy-email-dark.png';
+
+// Logo images
+import reactRouterLogo from './assets/images/ReactRouterlogo.png';
+import reactRouterLogoDark from './assets/images/ReactRouterlogo-w.png';
+import githubLogo from './assets/images/Githublogo.png';
+import githubLogoDark from './assets/images/Githublogo-w.png';
+
+// About page images
+import rtLight from './assets/images/rt.png';
+import rtDark from './assets/images/rt-dark.png';
+import moreAboutLight from './assets/images/more-about.jpg';
+import moreAboutDark from './assets/images/more-about-dark.jpg';
+import interestsLight from './assets/images/interests.jpg';
+import interestsDark from './assets/images/interests-dark.jpg';
+import recsLight from './assets/images/recs.jpg';
+import recsDark from './assets/images/recs-dark.jpg';
+import certsLight from './assets/images/certs.jpg';
+import certsDark from './assets/images/certs-dark.jpg';
+
+// Toolbox images
+import htmlLogo from './assets/images/HTMLlogo.png';
+import cssLogo from './assets/images/CSSlogo.png';
+import jsLogo from './assets/images/JSlogo.png';
+import tsLogo from './assets/images/TSlogo.png';
+import reactLogo from './assets/images/Reactlogo.png';
+import tailwindLogo from './assets/images/Tailwindlogo.png';
+import bootstrapLogo from './assets/images/Bootstraplogo.png';
+import adobeCCLogo from './assets/images/CClogo.png';
+import figmaLogo from './assets/images/Figmalogo.png';
+import canvaLogo from './assets/images/Canvalogo.png';
+import gsapLogo from './assets/images/GSlogo.png';
+import firebaseLogo from './assets/images/Firebaselogo.png';
+import viteLogo from './assets/images/Vitelogo.png';
+import nodeLogo from './assets/images/Nodelogo.png';
+import mongoDBLogo from './assets/images/MongoDBlogo.png';
+import postmanLogo from './assets/images/Postmanlogo.png';
+import noSQLLogo from './assets/images/NoSQLlogo.png';
+import expressLogo from './assets/images/Expresslogo.png';
+import netlifyLogo from './assets/images/Netlifylogo.png';
+import wordpressLogo from './assets/images/Wordpresslogo.png';
+import npmLogo from './assets/images/npmlogo.png';
+import chatGPTLogo from './assets/images/ChatGPTlogo.png';
+import claudeAILogo from './assets/images/ClaudeAI.png';
+
+// Slide backgrounds
+import slide1 from './assets/images/slide1.jpg';
+import slide2 from './assets/images/slide2.jpg';
+import slide3 from './assets/images/slide3.jpg';
+import slide4 from './assets/images/slide4.jpg';
+
 // Type definitions
 interface ThemeConfig {
   headerBg: string;
@@ -72,57 +155,68 @@ interface ImageMapping {
   value: string;
 }
 
-interface SlideBackground {
-  url: string;
+interface SlideIcon {
+  src: string;
+  alt: string;
+}
+
+interface SlideData {
+  backgroundUrl: string;
+  icons: SlideIcon[];
+  title: string;
+  description: string;
+  technologiesUsed: string;
+  liveLink?: string;
+  githubLink?: string;
 }
 
 // Theme configuration
 const themeConfig: ThemeConfigs = {
   light: {
-    headerBg: './src/assets/images/header-bg-light.webp',
+    headerBg: headerBgLight,
     hero: {
-      small: './src/assets/images/spot-light-sm.webp',
-      large: './src/assets/images/spot-light-lg.webp',
+      small: spotLightSm,
+      large: spotLightLg,
     },
-    github: './src/assets/images/github.png',
-    linkedin: './src/assets/images/linkedin.png',
-    email: './src/assets/images/email.png',
-    resume: './src/assets/images/resume.png',
-    intro: './src/assets/images/heylo.jpg',
-    toolbox: './src/assets/images/toolbox.jpg',
-    work: './src/assets/images/work.jpg',
-    emailMe: './src/assets/images/email-me.jpg',
-    copyEmailIcon: './src/assets/images/copy-email.png',
-    reactRouterLogoImages: './src/assets/images/ReactRouterlogo.png',
-    githubLogoImages: './src/assets/images/Githublogo.png',
-    rtImage: './src/assets/images/rt.png',
-    moreAbout: './src/assets/images/more-about.jpg',
-    interests: './src/assets/images/interests.jpg',
-    recs: './src/assets/images/recs.jpg',
-    certs: './src/assets/images/certs.jpg',
+    github: githubLight,
+    linkedin: linkedinLight,
+    email: emailLight,
+    resume: resumeLight,
+    intro: introLight,
+    toolbox: toolboxLight,
+    work: workLight,
+    emailMe: emailMeLight,
+    copyEmailIcon: copyEmailLight,
+    reactRouterLogoImages: reactRouterLogo,
+    githubLogoImages: githubLogo,
+    rtImage: rtLight,
+    moreAbout: moreAboutLight,
+    interests: interestsLight,
+    recs: recsLight,
+    certs: certsLight,
   },
   dark: {
-    headerBg: './src/assets/images/header-bg.webp',
+    headerBg: headerBgDark,
     hero: {
-      small: './src/assets/images/spot-dark-sm.webp',
-      large: './src/assets/images/spot-dark-lg.webp',
+      small: spotDarkSm,
+      large: spotDarkLg,
     },
-    github: './src/assets/images/github-dark.png',
-    linkedin: './src/assets/images/linkedin-dark.png',
-    email: './src/assets/images/email-dark.png',
-    resume: './src/assets/images/resume-dark.png',
-    intro: './src/assets/images/heylo-dark.jpg',
-    toolbox: './src/assets/images/toolbox-dark.jpg',
-    work: './src/assets/images/work-dark.jpg',
-    emailMe: './src/assets/images/email-me-dark.jpg',
-    copyEmailIcon: './src/assets/images/copy-email-dark.png',
-    reactRouterLogoImages: './src/assets/images/ReactRouterlogo-w.png',
-    githubLogoImages: './src/assets/images/Githublogo-w.png',
-    rtImage: './src/assets/images/rt-dark.png',
-    moreAbout: './src/assets/images/more-about-dark.jpg',
-    interests: './src/assets/images/interests-dark.jpg',
-    recs: './src/assets/images/recs-dark.jpg',
-    certs: './src/assets/images/certs-dark.jpg',
+    github: githubDark,
+    linkedin: linkedinDark,
+    email: emailDark,
+    resume: resumeDark,
+    intro: introDark,
+    toolbox: toolboxDark,
+    work: workDark,
+    emailMe: emailMeDark,
+    copyEmailIcon: copyEmailDark,
+    reactRouterLogoImages: reactRouterLogoDark,
+    githubLogoImages: githubLogoDark,
+    rtImage: rtDark,
+    moreAbout: moreAboutDark,
+    interests: interestsDark,
+    recs: recsDark,
+    certs: certsDark,
   },
 };
 
@@ -166,140 +260,64 @@ const getCachedElements = (): CachedElements => ({
   prevButton: document.querySelector('.nav-arrow.prev') as HTMLButtonElement,
   nextButton: document.querySelector('.nav-arrow.next') as HTMLButtonElement,
   reactRouterLogoImages: document.querySelector(
-    '#toolbox .marquee__group img[src="./src/assets/images/ReactRouterlogo.png"]'
+    '#toolbox .marquee__group img[src="./assets/images/ReactRouterlogo.png"]'
   ) as HTMLImageElement,
   githubLogoImages: document.querySelector(
-    '#toolbox .marquee__group img[src="./src/assets/images/Githublogo.png"]'
+    '#toolbox .marquee__group img[src="./assets/images/Githublogo.png"]'
   ) as HTMLImageElement,
   rtImage: document.querySelector(
     '.about__hero-container .me-image'
   ) as HTMLImageElement,
   moreAboutImage: document.querySelector(
-    '.about__more-about-me img[src="./src/assets/images/more-about.jpg"]'
+    '.about__more-about-me img[src="./assets/images/more-about.jpg"]'
   ) as HTMLImageElement,
   interestsImage: document.querySelector(
-    '.about__interests img[src="./src/assets/images/interests.jpg"]'
+    '.about__interests img[src="./assets/images/interests.jpg"]'
   ) as HTMLImageElement,
   recsImage: document.querySelector(
-    '.about__recs img[src="./src/assets/images/recs.jpg"]'
+    '.about__recs img[src="./assets/images/recs.jpg"]'
   ) as HTMLImageElement,
   certsImage: document.querySelector(
-    '.about__certs img[src="./src/assets/images/certs.jpg"]'
+    '.about__certs img[src="./assets/images/certs.jpg"]'
   ) as HTMLImageElement,
 });
 
 const toolboxItems: ToolboxItem[] = [
-  { name: 'HTML', image: './src/assets/images/HTMLlogo.png', alt: 'HTML logo' },
-  { name: 'CSS', image: './src/assets/images/CSSlogo.png', alt: 'CSS logo' },
-  {
-    name: 'Javascript',
-    image: './src/assets/images/JSlogo.png',
-    alt: 'Javascript logo',
-  },
-  {
-    name: 'Typescript',
-    image: './src/assets/images/TSlogo.png',
-    alt: 'Typescript logo',
-  },
-  {
-    name: 'React',
-    image: './src/assets/images/Reactlogo.png',
-    alt: 'React logo',
-  },
-  {
-    name: 'Tailwind CSS',
-    image: './src/assets/images/Tailwindlogo.png',
-    alt: 'Tailwind CSS',
-  },
-  {
-    name: 'Bootstrap',
-    image: './src/assets/images/Bootstraplogo.png',
-    alt: 'Bootstrap logo',
-  },
+  { name: 'HTML', image: htmlLogo, alt: 'HTML logo' },
+  { name: 'CSS', image: cssLogo, alt: 'CSS logo' },
+  { name: 'Javascript', image: jsLogo, alt: 'Javascript logo' },
+  { name: 'Typescript', image: tsLogo, alt: 'Typescript logo' },
+  { name: 'React', image: reactLogo, alt: 'React logo' },
+  { name: 'Tailwind CSS', image: tailwindLogo, alt: 'Tailwind CSS' },
+  { name: 'Bootstrap', image: bootstrapLogo, alt: 'Bootstrap logo' },
   {
     name: 'React Router',
-    image: './src/assets/images/ReactRouterlogo.png',
-    darkImage: './src/assets/images/ReactRouterlogo-w.png',
+    image: reactRouterLogo,
+    darkImage: reactRouterLogoDark,
     alt: 'React Router logo',
   },
-  {
-    name: 'Adobe CC',
-    image: './src/assets/images/CClogo.png',
-    alt: 'Adobe Creative Cloud logo',
-  },
-  {
-    name: 'Figma',
-    image: './src/assets/images/Figmalogo.png',
-    alt: 'Figma logo',
-  },
-  {
-    name: 'Canva',
-    image: './src/assets/images/Canvalogo.png',
-    alt: 'Canva logo',
-  },
-  {
-    name: 'GreenSock',
-    image: './src/assets/images/GSlogo.png',
-    alt: 'GreenSock logo',
-  },
-  {
-    name: 'Firebase',
-    image: './src/assets/images/Firebaselogo.png',
-    alt: 'Firebase logo',
-  },
-  { name: 'Vite', image: './src/assets/images/Vitelogo.png', alt: 'Vite logo' },
-  {
-    name: 'Node.js',
-    image: './src/assets/images/Nodelogo.png',
-    alt: 'Node.js logo',
-  },
-  {
-    name: 'MongoDB Atlas',
-    image: './src/assets/images/MongoDBlogo.png',
-    alt: 'MongoDB Atlas logo',
-  },
-  {
-    name: 'Postman',
-    image: './src/assets/images/Postmanlogo.png',
-    alt: 'Postman logo',
-  },
-  {
-    name: 'NoSQL',
-    image: './src/assets/images/NoSQLlogo.png',
-    alt: 'NoSQL logo',
-  },
-  {
-    name: 'Express',
-    image: './src/assets/images/Expresslogo.png',
-    alt: 'Express logo',
-  },
+  { name: 'Adobe CC', image: adobeCCLogo, alt: 'Adobe Creative Cloud logo' },
+  { name: 'Figma', image: figmaLogo, alt: 'Figma logo' },
+  { name: 'Canva', image: canvaLogo, alt: 'Canva logo' },
+  { name: 'GreenSock', image: gsapLogo, alt: 'GreenSock logo' },
+  { name: 'Firebase', image: firebaseLogo, alt: 'Firebase logo' },
+  { name: 'Vite', image: viteLogo, alt: 'Vite logo' },
+  { name: 'Node.js', image: nodeLogo, alt: 'Node.js logo' },
+  { name: 'MongoDB Atlas', image: mongoDBLogo, alt: 'MongoDB Atlas logo' },
+  { name: 'Postman', image: postmanLogo, alt: 'Postman logo' },
+  { name: 'NoSQL', image: noSQLLogo, alt: 'NoSQL logo' },
+  { name: 'Express', image: expressLogo, alt: 'Express logo' },
   {
     name: 'Github',
-    image: './src/assets/images/Githublogo.png',
-    darkImage: './src/assets/images/Githublogo-w.png',
+    image: githubLogo,
+    darkImage: githubLogoDark,
     alt: 'Github logo',
   },
-  {
-    name: 'Netlify',
-    image: './src/assets/images/Netlifylogo.png',
-    alt: 'Netlify logo',
-  },
-  {
-    name: 'Wordpress',
-    image: './src/assets/images/Wordpresslogo.png',
-    alt: 'Wordpress logo',
-  },
-  { name: 'npm', image: './src/assets/images/npmlogo.png', alt: 'npm logo' },
-  {
-    name: 'ChatGPT',
-    image: './src/assets/images/ChatGPTlogo.png',
-    alt: 'ChatGPT logo',
-  },
-  {
-    name: 'ClaudeAI',
-    image: './src/assets/images/ClaudeAI.png',
-    alt: 'ClaudeAI logo',
-  },
+  { name: 'Netlify', image: netlifyLogo, alt: 'Netlify logo' },
+  { name: 'Wordpress', image: wordpressLogo, alt: 'Wordpress logo' },
+  { name: 'npm', image: npmLogo, alt: 'npm logo' },
+  { name: 'ChatGPT', image: chatGPTLogo, alt: 'ChatGPT logo' },
+  { name: 'ClaudeAI', image: claudeAILogo, alt: 'ClaudeAI logo' },
 ];
 
 function createToolboxItems(isDarkTheme: boolean): string {
@@ -461,11 +479,88 @@ const initTheme = (elements: CachedElements): void => {
 };
 
 // Slider functions
-const slideBackgrounds: SlideBackground[] = [
-  { url: './src/assets/images/slide1.jpg' },
-  { url: './src/assets/images/slide2.jpg' },
-  { url: './src/assets/images/slide3.jpg' },
-  { url: './src/assets/images/slide4.jpg' },
+const slideData: SlideData[] = [
+  {
+    backgroundUrl: slide1,
+    icons: [
+      { src: htmlLogo, alt: 'HTML logo' },
+      { src: cssLogo, alt: 'CSS logo' },
+      { src: jsLogo, alt: 'JavaScript logo' },
+      { src: tsLogo, alt: 'TypeScript logo' },
+      { src: reactLogo, alt: 'React logo' },
+      { src: tailwindLogo, alt: 'Tailwind CSS logo' },
+      { src: reactRouterLogo, alt: 'React Router logo' },
+      { src: viteLogo, alt: 'Vite logo' },
+      { src: nodeLogo, alt: 'Node.js logo' },
+      { src: npmLogo, alt: 'NPM logo' },
+      { src: adobeCCLogo, alt: 'Adobe Creative Cloud logo' },
+    ],
+    title: 'Mobile-first E-commerce Website/SPA',
+    description:
+      'This was a guru-level challenge from Frontend Mentor. Lighthouse report is 100% in every category, which include performance, accessibility, best practices, and SEO.',
+    technologiesUsed: 'Built with Typescript, React, Vite',
+    liveLink: 'https://audiophile.rtdevcraft.com/',
+    githubLink: 'https://github.com/rtdevcraft/Audiophile',
+  },
+  {
+    backgroundUrl: slide2,
+    icons: [
+      { src: htmlLogo, alt: 'HTML logo' },
+      { src: cssLogo, alt: 'CSS logo' },
+      { src: jsLogo, alt: 'JavaScript logo' },
+      { src: tsLogo, alt: 'TypeScript logo' },
+      { src: reactLogo, alt: 'React logo' },
+      { src: tailwindLogo, alt: 'Tailwind CSS logo' },
+      { src: reactRouterLogo, alt: 'React Router logo' },
+      { src: viteLogo, alt: 'Vite logo' },
+      { src: nodeLogo, alt: 'Node.js logo' },
+      { src: npmLogo, alt: 'NPM logo' },
+      { src: adobeCCLogo, alt: 'Adobe Creative Cloud logo' },
+    ],
+    title: 'Responsive Rock Paper Scissors Game',
+    description:
+      'This was an advanced level challenge from Frontend Mentor. Lighthouse report is 100% in every category, which include performance, accessibility, best practices, and SEO.',
+    technologiesUsed: 'Built with Typescript, React, Vite',
+    liveLink: 'https://rpsls.rtdevcraft.com/',
+    githubLink:
+      'https://github.com/rtdevcraft/Rock-Paper-Scissors-Lizard-Spock',
+  },
+  {
+    backgroundUrl: slide3,
+    icons: [
+      { src: htmlLogo, alt: 'HTML logo' },
+      { src: cssLogo, alt: 'CSS logo' },
+      { src: jsLogo, alt: 'JavaScript logo' },
+      { src: adobeCCLogo, alt: 'Adobe Creative Cloud logo' },
+    ],
+    title: 'Responsive Design Portfolio Website',
+    description:
+      'This was the website I designed and developed for my UX/UI/web/graphic design work.',
+    technologiesUsed: 'Built with HTML, CSS, and JavaScript',
+    liveLink: 'https://raedesign.org/',
+    githubLink: 'https://github.com/rtdevcraft/portfolio-24',
+  },
+  {
+    backgroundUrl: slide4,
+    icons: [
+      { src: htmlLogo, alt: 'HTML logo' },
+      { src: cssLogo, alt: 'CSS logo' },
+      { src: jsLogo, alt: 'JavaScript logo' },
+      { src: tsLogo, alt: 'TypeScript logo' },
+      { src: reactLogo, alt: 'React logo' },
+      { src: tailwindLogo, alt: 'Tailwind CSS logo' },
+      { src: reactRouterLogo, alt: 'React Router logo' },
+      { src: viteLogo, alt: 'Vite logo' },
+      { src: nodeLogo, alt: 'Node.js logo' },
+      { src: npmLogo, alt: 'NPM logo' },
+      { src: adobeCCLogo, alt: 'Adobe Creative Cloud logo' },
+    ],
+    title: 'Fitness Tracking App',
+    description:
+      'In Progress- Tackling the challenge of redesigning and building a fitness tracker app that is suited to my specific needs',
+    technologiesUsed: 'Building with Typescript, React, Vite',
+    // Note: No liveLink or githubLink for this project as it's in progress
+  },
 ];
 
 const createSlider = (elements: CachedElements) => {
@@ -477,8 +572,58 @@ const createSlider = (elements: CachedElements) => {
       const isActive = i === index;
       slide.classList.toggle('active', isActive);
       slide.classList.toggle('nonActive', !isActive);
-      slide.style.backgroundImage = `url('${slideBackgrounds[i].url}')`;
-      if (content) content.style.display = isActive ? 'flex' : 'none';
+
+      if (content) {
+        content.style.display = isActive ? 'flex' : 'none';
+
+        if (isActive) {
+          const currentSlideData = slideData[i];
+          slide.style.backgroundImage = `url('${currentSlideData.backgroundUrl}')`;
+
+          // Update icons
+          const iconsContainer = content.querySelector('.slide__icons');
+          if (iconsContainer) {
+            iconsContainer.innerHTML = currentSlideData.icons
+              .map((icon) => `<img src="${icon.src}" alt="${icon.alt}" />`)
+              .join('');
+          }
+
+          // Update title and description
+          const titleElement = content.querySelector('h3');
+          const descElements = content.querySelectorAll('p');
+          if (titleElement) titleElement.textContent = currentSlideData.title;
+          if (descElements[0])
+            descElements[0].textContent = currentSlideData.description;
+          if (descElements[1] && currentSlideData.technologiesUsed) {
+            descElements[1].textContent = currentSlideData.technologiesUsed;
+          }
+
+          // Update links
+          const linkContainer = content.querySelector('.slide__links');
+          if (linkContainer) {
+            linkContainer.innerHTML = '';
+            if (currentSlideData.liveLink) {
+              linkContainer.innerHTML += `
+                <div class="slide__link">
+                  <a href="${currentSlideData.liveLink}" target="_blank" aria-label="View live project">
+                    <img src="/src/assets/images/link-icon.jpg" alt="Icon of a cloud and arrow" />
+                  </a>
+                </div>
+              `;
+            }
+            if (currentSlideData.githubLink) {
+              linkContainer.innerHTML += `
+                <div class="slide__link">
+                  <a href="${currentSlideData.githubLink}" target="_blank" aria-label="View project on GitHub">
+                    <img src="/src/assets/images/github.png" alt="Github logo" />
+                  </a>
+                </div>
+              `;
+            }
+          }
+        }
+      }
+
       slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
       slide.setAttribute('tabindex', isActive ? '0' : '-1');
     });
@@ -540,30 +685,37 @@ const toggleMenu = (elements: CachedElements): void => {
 
 // Initialize slider
 const initSlider = (elements: CachedElements): void => {
+  console.log('Number of slides found:', elements.slides.length); // Debugging line
+
   if (elements.slides.length > 0) {
+    console.log('Slides found, initializing slider');
     const { showSlide, nextSlide, prevSlide, handleKeyboardNavigation } =
       createSlider(elements);
 
-    elements.slides.forEach((slide, index) => {
-      if (slideBackgrounds[index]) {
-        slide.style.backgroundImage = `url('${slideBackgrounds[index].url}')`;
-      }
-    });
-    showSlide(0);
+    showSlide(0); // Show the first slide initially
 
     if (elements.nextButton) {
+      console.log('Next button found, adding event listener');
       elements.nextButton.addEventListener('click', nextSlide);
+    } else {
+      console.warn('Next button not found');
     }
 
     if (elements.prevButton) {
+      console.log('Previous button found, adding event listener');
       elements.prevButton.addEventListener('click', prevSlide);
+    } else {
+      console.warn('Previous button not found');
     }
 
     const sliderContainer = document.querySelector('.slider-container');
     if (sliderContainer) {
+      console.log('Slider container found, adding keyboard navigation');
       sliderContainer.addEventListener('keydown', (event: Event) => {
         handleKeyboardNavigation(event as KeyboardEvent);
       });
+    } else {
+      console.warn('Slider container not found');
     }
   } else {
     console.warn('No slides found');

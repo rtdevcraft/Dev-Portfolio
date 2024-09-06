@@ -29,5 +29,11 @@
     /* ESM Support */
     "esModuleInterop": true
   },
-  "include": ["src/**/*", "tests/**/*", "src/main.ts"]
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "src/main.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ]
 }
