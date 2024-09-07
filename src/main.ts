@@ -228,16 +228,16 @@ const getCachedElements = (): CachedElements => ({
   navLinks: document.getElementById('nav-links') as HTMLElement,
   heroImage: document.querySelector('.hero__image') as HTMLImageElement,
   githubImage: document.querySelector(
-    '.social-links img[src*="github"]'
+    'img[data-theme-image="github"]'
   ) as HTMLImageElement,
   linkedinImage: document.querySelector(
-    '.social-links img[src*="linkedin"]'
+    'img[data-theme-image="linkedin"]'
   ) as HTMLImageElement,
   emailImage: document.querySelector(
-    'a[href^="mailto:"] img'
+    'img[data-theme-image="email"]'
   ) as HTMLImageElement,
   resumeImage: document.querySelector(
-    '.social-links img[src*="resume"]'
+    'img[data-theme-image="resume"]'
   ) as HTMLImageElement,
   introImage: document.querySelector(
     '#about .header-image'
@@ -250,7 +250,7 @@ const getCachedElements = (): CachedElements => ({
     '#email-me .header-image'
   ) as HTMLImageElement,
   copyEmailIcon: document.querySelector(
-    '#email-me img[src*="copy-email"]'
+    'img[data-theme-image="copy-email"]'
   ) as HTMLImageElement,
   nextButton: document.querySelector('.nav-arrow.next') as HTMLButtonElement,
   prevButton: document.querySelector('.nav-arrow.prev') as HTMLButtonElement,
@@ -264,16 +264,16 @@ const getCachedElements = (): CachedElements => ({
     '.about__hero-container .me-image'
   ) as HTMLImageElement,
   moreAboutImage: document.querySelector(
-    '.about__more-about-me img[src="./assets/images/more-about.jpg"]'
+    '.about__more-about-me img[src*="more-about"]'
   ) as HTMLImageElement,
   interestsImage: document.querySelector(
-    '.about__interests img[src="./assets/images/interests.jpg"]'
+    '.about__interests img[src*="interests"]'
   ) as HTMLImageElement,
   recsImage: document.querySelector(
-    '.about__recs img[src="./assets/images/recs.jpg"]'
+    '.about__recs img[src*="recs"]'
   ) as HTMLImageElement,
   certsImage: document.querySelector(
-    '.about__certs img[src="./assets/images/certs.jpg"]'
+    '.about__certs img[src*="certs"]'
   ) as HTMLImageElement,
 });
 

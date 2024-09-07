@@ -722,10 +722,6 @@ nav a {
   flex-direction: row;
 }
 
-.slide.last-slide .slide__desc {
-  margin-left: 2.5em;
-}
-
 /* Email me section styles */
 
 .email-me {
@@ -1208,9 +1204,6 @@ nav a {
   }
   .slide__desc {
     width: 60%;
-  }
-  .slide.last-slide .slide__desc {
-    margin-left: auto;
   }
 }
 
