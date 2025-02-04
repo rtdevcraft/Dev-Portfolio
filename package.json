@@ -14,15 +14,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@testing-library/jest-dom": "^6.4.8",
-    "@testing-library/react": "^16.0.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "@types/jsdom": "^21.1.7",
     "jsdom": "^24.1.1",
     "prettier": "^3.3.2",
     "typescript": "^5.5.4",
     "vite": "^5.4.3",
     "vite-plugin-imagemin": "^0.1.0",
-    "vitest": "^2.0.5"
+    "vitest": "^3.0.5"
   },
   "dependencies": {
     "jquery": "^3.7.1"
