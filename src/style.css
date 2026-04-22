@@ -7,14 +7,14 @@
 }
 
 /* Theme Variables */
-body.light-theme {
+[data-theme='light'] {
   --icon-toggle-bg: #161616;
   --icon-toggle: #fcfcfc;
   --background: #fff;
   --fill: #333;
 }
 
-body.dark-theme {
+[data-theme='dark'] {
   --icon-toggle-bg: #fff;
   --icon-toggle: #161616;
   --background: #333;
@@ -285,11 +285,11 @@ nav a {
   z-index: -1;
 }
 
-.light-theme #switch-theme::before {
+[data-theme='light'] #switch-theme::before {
   animation: pulseToLight 650ms ease-out;
 }
 
-.dark-theme #switch-theme::before {
+[data-theme='dark'] #switch-theme::before {
   animation: pulseToDark 650ms ease-out;
 }
 
@@ -334,7 +334,7 @@ nav a {
   transition: transform 500ms ease-out;
 }
 
-.light-theme .toggle-circle {
+[data-theme='light'] .toggle-circle {
   transform: translateX(-15%);
 }
 
@@ -349,33 +349,33 @@ nav a {
   transition: 750ms ease-out;
   transform-origin: center center;
 }
-.dark-theme .moon-mask {
+[data-theme='dark'] .moon-mask {
   r: 9;
   cx: 12;
   cy: 4;
 }
-.light-theme .moon-mask {
+[data-theme='light'] .moon-mask {
   r: 5;
   transform: rotate(-90deg);
   cx: 20;
   cy: 0;
 }
-.dark-theme .sun-core {
+[data-theme='dark'] .sun-core {
   transform: rotate(-40deg);
 }
-.dark-theme .sun-rays {
+[data-theme='dark'] .sun-rays {
   transform: rotate(-180deg);
   opacity: 0;
 }
 
-.light-theme .toggle-sun {
+[data-theme='light'] .toggle-sun {
   transform: rotate(0.5turn);
 }
-.light-theme .img .toggle-sun {
+[data-theme='light'] .img .toggle-sun {
   transform: rotate(0.5turn);
 }
-.light-theme .sun-rays,
-.light-theme .sun-core {
+[data-theme='light'] .sun-rays,
+[data-theme='light'] .sun-core {
   color: var(--sun-clr);
   fill: var(--sun-clr);
 }
@@ -385,10 +385,29 @@ nav a {
   width: 100%;
 }
 
+.hero {
+  position: relative;
+}
+
 .hero__image {
+  display: block;
+  width: 100%;
+}
+
+.hero__image img {
   width: 100%;
   height: auto;
   object-fit: cover;
+  display: block;
+}
+
+/* Theme-based hero visibility */
+[data-theme='light'] .hero__image--dark {
+  display: none;
+}
+
+[data-theme='dark'] .hero__image--light {
+  display: none;
 }
 
 /* Intro Section Styles */
@@ -1354,6 +1373,11 @@ nav a {
   .hero__image {
     width: 100%;
     height: 100%;
+  }
+
+  .hero__image img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     max-height: 100vh;
   }
@@ -1539,7 +1563,7 @@ nav a {
 }
 
 @media screen and (min-width: 2000px) {
-  .hero__image {
+  .hero__image img {
     width: 93%;
   }
 

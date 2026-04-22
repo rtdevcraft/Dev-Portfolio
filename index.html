@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const theme =
+          saved ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -174,11 +187,23 @@
       <div class="container">
         <div class="hero-container">
           <section class="hero">
-            <img
-              class="hero__image"
-              src="/src/assets/images/spot-light-sm.webp"
-              alt="Spot On Front End Dev with cheetah and pixel art"
-            />
+            <picture class="hero__image hero__image--light">
+              <source
+                media="(min-width: 1000px)"
+                srcset="/src/assets/images/spot-light-lg.webp"
+              />
+              <img
+                src="/src/assets/images/spot-light-sm.webp"
+                alt="Spot On Front End Dev with cheetah and pixel art"
+              />
+            </picture>
+            <picture class="hero__image hero__image--dark" aria-hidden="true">
+              <source
+                media="(min-width: 1000px)"
+                srcset="/src/assets/images/spot-dark-lg.webp"
+              />
+              <img src="/src/assets/images/spot-dark-sm.webp" alt="" />
+            </picture>
           </section>
         </div>
 

@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script>
+      (function () {
+        const saved = localStorage.getItem('theme');
+        const theme =
+          saved ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon-CYNUDK_i.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32-BFpFybTs.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16-CiNdLHu4.png" />
@@ -35,8 +48,8 @@
       href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script type="module" crossorigin src="/assets/main-HtLSW4yz.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-BExKM3It.css">
+    <script type="module" crossorigin src="/assets/main-npfLqhbG.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-dbvo9NzZ.css">
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -175,11 +188,23 @@
       <div class="container">
         <div class="hero-container">
           <section class="hero">
-            <img
-              class="hero__image"
-              src="/assets/spot-light-sm-DF74uP3i.webp"
-              alt="Spot On Front End Dev with cheetah and pixel art"
-            />
+            <picture class="hero__image hero__image--light">
+              <source
+                media="(min-width: 1000px)"
+                srcset="/assets/spot-light-lg-BbK5iGTa.webp"
+              />
+              <img
+                src="/assets/spot-light-sm-DF74uP3i.webp"
+                alt="Spot On Front End Dev with cheetah and pixel art"
+              />
+            </picture>
+            <picture class="hero__image hero__image--dark" aria-hidden="true">
+              <source
+                media="(min-width: 1000px)"
+                srcset="/assets/spot-dark-lg-BQixVIOO.webp"
+              />
+              <img src="/assets/spot-dark-sm-BOspPSHf.webp" alt="" />
+            </picture>
           </section>
         </div>
 

@@ -4,12 +4,6 @@ export {};
 import headerBgLight from './assets/images/header-bg-light.webp';
 import headerBgDark from './assets/images/header-bg.webp';
 
-// Hero images
-import spotLightSm from './assets/images/spot-light-sm.webp';
-import spotLightLg from './assets/images/spot-light-lg.webp';
-import spotDarkSm from './assets/images/spot-dark-sm.webp';
-import spotDarkLg from './assets/images/spot-dark-lg.webp';
-
 // Social icons
 import githubLight from './assets/images/github.png';
 import githubDark from './assets/images/github-dark.png';
@@ -85,12 +79,10 @@ import slide3 from './assets/images/slide3.jpg';
 import slide4 from './assets/images/slide4.jpg';
 
 // Type definitions
+type Theme = 'light' | 'dark';
+
 interface ThemeConfig {
   headerBg: string;
-  hero: {
-    small: string;
-    large: string;
-  };
   github: string;
   linkedin: string;
   email: string;
@@ -121,7 +113,6 @@ interface CachedElements {
   body: HTMLElement;
   header: HTMLElement;
   navLinks: HTMLElement;
-  heroImage: HTMLImageElement;
   githubImage: HTMLImageElement;
   linkedinImage: HTMLImageElement;
   emailImage: HTMLImageElement;
@@ -169,10 +160,6 @@ interface SlideData {
 const themeConfig: ThemeConfigs = {
   light: {
     headerBg: headerBgLight,
-    hero: {
-      small: spotLightSm,
-      large: spotLightLg,
-    },
     github: githubLight,
     linkedin: linkedinLight,
     email: emailLight,
@@ -192,10 +179,6 @@ const themeConfig: ThemeConfigs = {
   },
   dark: {
     headerBg: headerBgDark,
-    hero: {
-      small: spotDarkSm,
-      large: spotDarkLg,
-    },
     github: githubDark,
     linkedin: linkedinDark,
     email: emailDark,
@@ -225,7 +208,6 @@ const getCachedElements = (): CachedElements => ({
   body: document.body,
   header: document.querySelector('header') as HTMLElement,
   navLinks: document.getElementById('nav-links') as HTMLElement,
-  heroImage: document.querySelector('.hero__image') as HTMLImageElement,
   githubImage: document.querySelector(
     'img[data-theme-image="github"]'
   ) as HTMLImageElement,
@@ -307,13 +289,19 @@ const toolboxItems: ToolboxItem[] = [
   { name: 'ClaudeAI', image: claudeAILogo, alt: 'ClaudeAI logo' },
 ];
 
-function createToolboxItems(isDarkTheme: boolean): string {
+// Helper functions
+const getCurrentTheme = (): Theme =>
+  (document.documentElement.getAttribute('data-theme') as Theme) || 'light';
+
+const isDarkTheme = (): boolean => getCurrentTheme() === 'dark';
+
+function createToolboxItems(darkTheme: boolean): string {
   const itemsHTML = toolboxItems
     .map(
       (item: ToolboxItem) => `
       <li>
         <img 
-          src="${isDarkTheme && item.darkImage ? item.darkImage : item.image}" 
+          src="${darkTheme && item.darkImage ? item.darkImage : item.image}" 
           alt="${item.alt}"
           data-light-src="${item.image}"
           ${item.darkImage ? `data-dark-src="${item.darkImage}"` : ''}
@@ -330,8 +318,7 @@ function createToolboxItems(isDarkTheme: boolean): string {
 function populateToolbox(): void {
   const marqueeGroups: NodeListOf<Element> =
     document.querySelectorAll('.marquee__group');
-  const isDarkTheme = document.body.classList.contains('dark-theme');
-  const toolboxContent: string = createToolboxItems(isDarkTheme);
+  const toolboxContent: string = createToolboxItems(isDarkTheme());
 
   marqueeGroups.forEach((group: Element) => {
     if (group instanceof HTMLElement) {
@@ -340,14 +327,14 @@ function populateToolbox(): void {
   });
 }
 
-function updateToolboxImages(isDarkTheme: boolean): void {
+function updateToolboxImages(darkTheme: boolean): void {
   const toolboxImages = document.querySelectorAll(
     '.marquee__group img'
   ) as NodeListOf<HTMLImageElement>;
   toolboxImages.forEach((img) => {
     const lightSrc = img.dataset.lightSrc;
     const darkSrc = img.dataset.darkSrc;
-    if (isDarkTheme && darkSrc) {
+    if (darkTheme && darkSrc) {
       img.src = darkSrc;
     } else if (lightSrc) {
       img.src = lightSrc;
@@ -357,21 +344,11 @@ function updateToolboxImages(isDarkTheme: boolean): void {
 
 // Call this function when the theme changes
 function handleThemeChange(): void {
-  const isDarkTheme = document.body.classList.contains('dark-theme');
-  updateToolboxImages(isDarkTheme);
+  updateToolboxImages(isDarkTheme());
 }
 
-// Helper functions
-const isLargeScreen = (): boolean =>
-  window.matchMedia('(min-width: 1000px)').matches;
-const getCurrentTheme = (body: HTMLElement): 'light' | 'dark' =>
-  body.classList.contains('light-theme') ? 'light' : 'dark';
-
-// Update images based on theme and screen size
-const updateImages = (
-  elements: CachedElements,
-  theme: 'light' | 'dark'
-): void => {
+// Update images based on theme
+const updateImages = (elements: CachedElements, theme: Theme): void => {
   const config = themeConfig[theme];
 
   const imageMappings: ImageMapping[] = [
@@ -379,11 +356,6 @@ const updateImages = (
       element: elements.header,
       prop: 'backgroundImage',
       value: `url("${config.headerBg}")`,
-    },
-    {
-      element: elements.heroImage,
-      prop: 'src',
-      value: config.hero[isLargeScreen() ? 'large' : 'small'],
     },
     { element: elements.githubImage, prop: 'src', value: config.github },
     { element: elements.linkedinImage, prop: 'src', value: config.linkedin },
@@ -423,46 +395,39 @@ const updateImages = (
     }
   });
 };
-// Theme toggle function
-const toggleTheme = (elements: CachedElements): void => {
-  const currentTheme = getCurrentTheme(elements.body);
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-  elements.body.classList.remove('light-theme', 'dark-theme');
-  elements.body.classList.add(`${newTheme}-theme`);
-
-  updateImages(elements, newTheme);
-
-  handleThemeChange();
-
-  localStorage.setItem('theme', newTheme);
-
-  document.querySelectorAll('.switch-theme').forEach((button) => {
-    button.setAttribute(
-      'aria-label',
-      `Switch to ${newTheme === 'light' ? 'dark' : 'light'} theme`
-    );
-  });
-};
-
-// Initialize theme
-const initTheme = (elements: CachedElements): void => {
-  const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-  const prefersDarkScheme = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-  ).matches;
-
-  // Use light theme as default unless dark theme is explicitly saved or preferred
-  const theme = savedTheme || (prefersDarkScheme ? 'dark' : 'light');
-
-  elements.body.classList.add(`${theme}-theme`);
-  updateImages(elements, theme);
+// Update aria labels on all theme toggle buttons
+const updateThemeToggleLabels = (theme: Theme): void => {
   document.querySelectorAll('.switch-theme').forEach((button) => {
     button.setAttribute(
       'aria-label',
       `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`
     );
   });
+};
+
+// Theme toggle function
+const toggleTheme = (elements: CachedElements): void => {
+  const currentTheme = getCurrentTheme();
+  const newTheme: Theme = currentTheme === 'light' ? 'dark' : 'light';
+
+  document.documentElement.setAttribute('data-theme', newTheme);
+
+  updateImages(elements, newTheme);
+  handleThemeChange();
+
+  localStorage.setItem('theme', newTheme);
+  updateThemeToggleLabels(newTheme);
+};
+
+// Initialize theme
+// Note: the inline <head> script has already set data-theme on <html>
+// before paint. This function just syncs theme-dependent images and labels
+// to whatever state the inline script established.
+const initTheme = (elements: CachedElements): void => {
+  const theme = getCurrentTheme();
+  updateImages(elements, theme);
+  updateThemeToggleLabels(theme);
 };
 
 // Slider functions
@@ -816,8 +781,8 @@ const init = (): void => {
   }
 
   // Window resize event listener
+  // (Hero image size is now handled by <picture> media queries — no JS swap needed)
   window.addEventListener('resize', () => {
-    updateImages(elements, getCurrentTheme(elements.body));
     handleResponsiveMenu(elements);
   });
 
