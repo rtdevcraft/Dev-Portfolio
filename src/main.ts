@@ -74,7 +74,6 @@ import expressLogo from './assets/images/Expresslogo.png';
 import netlifyLogo from './assets/images/Netlifylogo.png';
 import wordpressLogo from './assets/images/Wordpresslogo.png';
 import npmLogo from './assets/images/npmlogo.png';
-import chatGPTLogo from './assets/images/ChatGPTlogo.png';
 import claudeAILogo from './assets/images/ClaudeAI.png';
 
 // Slides
@@ -285,12 +284,6 @@ const toolboxItems: ToolboxItem[] = [
   { name: 'React', image: reactLogo, alt: 'React logo' },
   { name: 'Tailwind CSS', image: tailwindLogo, alt: 'Tailwind CSS' },
   { name: 'Bootstrap', image: bootstrapLogo, alt: 'Bootstrap logo' },
-  {
-    name: 'React Router',
-    image: reactRouterLogo,
-    darkImage: reactRouterLogoDark,
-    alt: 'React Router logo',
-  },
   { name: 'Adobe CC', image: adobeCCLogo, alt: 'Adobe Creative Cloud logo' },
   { name: 'Figma', image: figmaLogo, alt: 'Figma logo' },
   { name: 'Canva', image: canvaLogo, alt: 'Canva logo' },
@@ -311,7 +304,6 @@ const toolboxItems: ToolboxItem[] = [
   { name: 'Netlify', image: netlifyLogo, alt: 'Netlify logo' },
   { name: 'Wordpress', image: wordpressLogo, alt: 'Wordpress logo' },
   { name: 'npm', image: npmLogo, alt: 'npm logo' },
-  { name: 'ChatGPT', image: chatGPTLogo, alt: 'ChatGPT logo' },
   { name: 'ClaudeAI', image: claudeAILogo, alt: 'ClaudeAI logo' },
 ];
 
@@ -494,7 +486,7 @@ const slideData: SlideData[] = [
     description:
       'This was a guru-level challenge from Frontend Mentor. Lighthouse report is 100% in every category, which include performance, accessibility, best practices, and SEO.',
     technologiesUsed: 'Built with Typescript, React, Vite',
-    liveLink: 'https://audiophile.rtdevcraft.com/',
+    liveLink: 'https://audio.rtdevcraft.com/',
     githubLink: 'https://github.com/rtdevcraft/Audiophile',
   },
   {
@@ -516,7 +508,7 @@ const slideData: SlideData[] = [
     description:
       'This was an advanced level challenge from Frontend Mentor. Lighthouse report is 100% in every category, which include performance, accessibility, best practices, and SEO.',
     technologiesUsed: 'Built with Typescript, React, Vite',
-    liveLink: 'https://rpsls.rtdevcraft.com/',
+    liveLink: 'https://rpssl.rtdevcraft.com/',
     githubLink:
       'https://github.com/rtdevcraft/Rock-Paper-Scissors-Lizard-Spock',
   },
@@ -532,7 +524,7 @@ const slideData: SlideData[] = [
     description:
       'This was the website I designed and developed for my UX/UI/web/graphic design work.',
     technologiesUsed: 'Built with HTML, CSS, and JavaScript',
-    liveLink: 'https://raedesign.org/',
+    liveLink: 'https://design.rtdevcraft.com/',
     githubLink: 'https://github.com/rtdevcraft/portfolio-24',
   },
   {
