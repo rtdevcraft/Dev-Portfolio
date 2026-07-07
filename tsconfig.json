@@ -20,12 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* Path configurations */
-    "baseUrl": ".",
-    "paths": {
-      "*": ["*", "src/*"]
-    },
-
     /* ESM Support */
     "esModuleInterop": true
   },
